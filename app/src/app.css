@@ -5,67 +5,151 @@
 @layer base {
   :root {
     /* Catppuccin Latte */
-    --background: 220 23% 95%; /* latte base */
-    --foreground: 234 16% 35%; /* latte text */
-    --card: 220 23% 95%; /* latte base */
-    --card-foreground: 234 16% 35%; /* latte text */
-    --popover: 220 23% 95%; /* latte base */
-    --popover-foreground: 234 16% 35%; /* latte text */
-    --primary: 266 85% 58%; /* latte mauve */
-    --primary-foreground: 220 23% 95%; /* latte base */
-    --secondary: 220 14% 89%; /* latte mantle */
-    --secondary-foreground: 234 16% 35%; /* latte text */
-    --muted: 220 14% 89%; /* latte mantle */
-    --muted-foreground: 233 13% 54%; /* latte subtext0 */
-    --accent: 220 14% 89%; /* latte mantle */
-    --accent-foreground: 234 16% 35%; /* latte text */
-    --destructive: 347 87% 44%; /* latte red */
-    --destructive-foreground: 220 23% 95%; /* latte base */
-    --border: 218 19% 87%; /* latte surface0 */
-    --input: 218 11% 65%; /* latte surface2 */
-    --ring: 266 85% 58%; /* latte mauve */
+    --background: 220 23% 95%;
+    /* latte base */
+    --foreground: 234 16% 35%;
+    /* latte text */
+    --card: 220 23% 95%;
+    /* latte base */
+    --card-foreground: 234 16% 35%;
+    /* latte text */
+    --popover: 220 23% 95%;
+    /* latte base */
+    --popover-foreground: 234 16% 35%;
+    /* latte text */
+    --primary: 220 91 54;
+    /* latte blue */
+    --primary-foreground: 220 23% 95%;
+    /* latte base */
+    --secondary: 220 14% 89%;
+    /* latte mantle */
+    --secondary-foreground: 234 16% 35%;
+    /* latte text */
+    --muted: 220 14% 89%;
+    /* latte mantle */
+    --muted-foreground: 233 13% 54%;
+    /* latte subtext0 */
+    --accent: 220 14% 89%;
+    /* latte mantle */
+    --accent-foreground: 234 16% 35%;
+    /* latte text */
+    --destructive: 347 87% 44%;
+    /* latte red */
+    --destructive-foreground: 220 23% 95%;
+    /* latte base */
+    --border: 218 19% 87%;
+    /* latte surface0 */
+    --input: 218 11% 65%;
+    /* latte surface2 */
+    --ring: 266 85% 58%;
+    /* latte mauve */
     --radius: 0.5rem;
 
-    --sidebar-background: 220 23% 95%; /* latte base */
-    --sidebar-foreground: 234 16% 35%; /* latte text */
-    --sidebar-primary: 266 85% 58%; /* latte mauve */
-    --sidebar-primary-foreground: 220 23% 95%; /* latte base */
-    --sidebar-accent: 220 14% 89%; /* latte mantle */
-    --sidebar-accent-foreground: 234 16% 35%; /* latte text */
-    --sidebar-border: 218 19% 87%; /* latte surface0 */
-    --sidebar-ring: 266 85% 58%; /* latte mauve */
+    --sidebar-background: 220 23% 95%;
+    /* latte base */
+    --sidebar-foreground: 234 16% 35%;
+    /* latte text */
+    --sidebar-primary: 220 91% 54%;
+    /* latte blue */
+    --sidebar-primary-foreground: 220 23% 95%;
+    /* latte base */
+    --sidebar-accent: 220 14% 89%;
+    /* latte mantle */
+    --sidebar-accent-foreground: 234 16% 35%;
+    /* latte text */
+    --sidebar-border: 218 19% 87%;
+    /* latte surface0 */
+    --sidebar-ring: 220 91% 54%;
+    /* latte blue */
   }
 
   .dark {
-    /* Catppuccin Macchiato */
-    --background: 232 23% 18%; /* macchiato base */
-    --foreground: 227 68% 88%; /* macchiato text */
-    --card: 233 25% 22%; /* macchiato surface0 */
-    --card-foreground: 227 68% 88%; /* macchiato text */
-    --popover: 233 25% 22%; /* macchiato surface0 */
-    --popover-foreground: 227 68% 88%; /* macchiato text */
-    --primary: 267 83% 80%; /* macchiato mauve */
-    --primary-foreground: 232 23% 18%; /* macchiato base */
-    --secondary: 230 19% 26%; /* macchiato surface1 */
-    --secondary-foreground: 227 68% 88%; /* macchiato text */
-    --muted: 230 19% 26%; /* macchiato surface1 */
-    --muted-foreground: 227 35% 80%; /* macchiato subtext0 */
-    --accent: 230 19% 26%; /* macchiato surface1 */
-    --accent-foreground: 227 68% 88%; /* macchiato text */
-    --destructive: 351 74% 73%; /* macchiato red */
-    --destructive-foreground: 232 23% 18%; /* macchiato base */
-    --border: 230 19% 26%; /* macchiato surface1 */
-    --input: 228 12% 34%; /* macchiato surface2 */
-    --ring: 267 83% 80%; /* macchiato mauve */
+    /* Catppuccin Mocha */
+    --background: 240 21% 15%;
+    /* mocha base */
+    --foreground: 226 64% 88%;
+    /* mocha text */
+    --card: 237 16% 23%;
+    /* mocha surface0 */
+    --card-foreground: 226 64% 88%;
+    /* mocha text */
+    --popover: 237 16% 23%;
+    /* mocha surface0 */
+    --popover-foreground: 226 64% 88%;
+    /* mocha text */
+    --primary: 217 92% 76%;
+    /* mocha blue */
+    --primary-foreground: 240 21% 15%;
+    /* mocha base */
+    --secondary: 234 13% 31%;
+    /* mocha surface1 */
+    --secondary-foreground: 226 64% 88%;
+    /* mocha text */
+    --muted: 234 13% 31%;
+    /* mocha surface1 */
+    --muted-foreground: #a6adc8;
+    /* mocha subtext0 */
+    --accent: 234 13% 31%;
+    /* mocha surface1 */
+    --accent-foreground: 226 64% 88%;
+    /* mocha text */
+    --destructive: 343 81% 75%;
+    /* mocha red */
+    --destructive-foreground: 240 21% 15%;
+    /* mocha base */
+    --border: 234 13% 31%;
+    /* mocha surface1 */
+    --input: 233 12% 39%;
+    /* mocha surface2 */
+    --ring: 217 92% 76%;
+    /* mocha blue */
 
-    --sidebar-background: 233 25% 22%; /* macchiato surface0 */
-    --sidebar-foreground: 227 68% 88%; /* macchiato text */
-    --sidebar-primary: 267 83% 80%; /* macchiato mauve */
-    --sidebar-primary-foreground: 232 23% 18%; /* macchiato base */
-    --sidebar-accent: 230 19% 26%; /* macchiato surface1 */
-    --sidebar-accent-foreground: 227 68% 88%; /* macchiato text */
-    --sidebar-border: 230 19% 26%; /* macchiato surface1 */
-    --sidebar-ring: 267 83% 80%; /* macchiato mauve */
+    --sidebar-background: 237 16% 23%;
+    /* mocha surface0 */
+    --sidebar-foreground: 226 64% 88%;
+    /* mocha text */
+    --sidebar-primary: 217 92% 76%;
+    /* mocha blue */
+    --sidebar-primary-foreground: 240 21% 15%;
+    /* mocha base */
+    --sidebar-accent: 234 13% 31%;
+    /* mocha surface1 */
+    --sidebar-accent-foreground: 226 64% 88%;
+    /* mocha text */
+    --sidebar-border: 234 13% 31%;
+    /* mocha surface1 */
+    --sidebar-ring: 217 92% 76%;
+    /* mocha blue */
+
+    /* Catppuccin Macchiato */
+    /* --background: 232 23% 18%; macchiato base */
+    /* --foreground: 227 68% 88%; macchiato text */
+    /* --card: 233 25% 22%; /* macchiato surface0 */
+    /* --card-foreground: 227 68% 88%; macchiato text */
+    /* --popover: 233 25% 22%; macchiato surface0 */
+    /* --popover-foreground: 227 68% 88%; macchiato text */
+    /* --primary: 267 83% 80%; macchiato mauve */
+    /* --primary-foreground: 232 23% 18%; macchiato base */
+    /* --secondary: 230 19% 26%; macchiato surface1 */
+    /* --secondary-foreground: 227 68% 88%; macchiato text */
+    /* --muted: 230 19% 26%; macchiato surface1 */
+    /* --muted-foreground: 227 35% 80%; macchiato subtext0 */
+    /* --accent: 230 19% 26%; macchiato surface1 */
+    /* --accent-foreground: 227 68% 88%; macchiato text */
+    /* --destructive: 351 74% 73%; macchiato red */
+    /* --destructive-foreground: 232 23% 18%; macchiato base */
+    /* --border: 230 19% 26%; macchiato surface1 */
+    /* --input: 228 12% 34%; macchiato surface2 */
+    /* --ring: 267 83% 80%; macchiato mauve */
+
+    /* --sidebar-background: 233 25% 22%; macchiato surface0 */
+    /* --sidebar-foreground: 227 68% 88%; macchiato text */
+    /* --sidebar-primary: 267 83% 80%; macchiato mauve */
+    /* --sidebar-primary-foreground: 232 23% 18%; macchiato base */
+    /* --sidebar-accent: 230 19% 26%; macchiato surface1 */
+    /* --sidebar-accent-foreground: 227 68% 88%; macchiato text */
+    /* --sidebar-border: 230 19% 26%; macchiato surface1 */
+    /* --sidebar-ring: 267 83% 80%; macchiato mauve */
   }
 
   * {
@@ -108,11 +192,11 @@
     @apply leading-7;
   }
 
-  p > a {
+  p>a {
     @apply underline-offset-4 opacity-75 transition-opacity hover:underline;
   }
 
-  p > a.active {
+  p>a.active {
     @apply font-medium opacity-100;
   }
 
