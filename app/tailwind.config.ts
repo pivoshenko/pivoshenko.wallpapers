@@ -59,6 +59,23 @@ const config: Config = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Catppuccin Extended Colors
+        ctp: {
+          rosewater: "hsl(var(--ctp-rosewater))",
+          flamingo: "hsl(var(--ctp-flamingo))",
+          pink: "hsl(var(--ctp-pink))",
+          mauve: "hsl(var(--ctp-mauve))",
+          red: "hsl(var(--ctp-red))",
+          maroon: "hsl(var(--ctp-maroon))",
+          peach: "hsl(var(--ctp-peach))",
+          yellow: "hsl(var(--ctp-yellow))",
+          green: "hsl(var(--ctp-green))",
+          teal: "hsl(var(--ctp-teal))",
+          sky: "hsl(var(--ctp-sky))",
+          sapphire: "hsl(var(--ctp-sapphire))",
+          blue: "hsl(var(--ctp-blue))",
+          lavender: "hsl(var(--ctp-lavender))",
+        },
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
