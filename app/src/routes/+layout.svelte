@@ -85,8 +85,7 @@
   </main>
 
   <div class="mt-32"></div>
-  <div
-    class="bg-primary/20 absolute bottom-0 flex h-32 w-full flex-col items-center justify-center gap-4">
+  <div class="absolute bottom-0 flex h-32 w-full flex-col items-center justify-center gap-4">
     <img src="/favicon.svg" alt="logo" class="w-5 rounded-md" />
     <a href={`https://github.com/${owner}`} class="text-muted-foreground">@pivoshenko</a>
   </div>
