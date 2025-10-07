@@ -11,13 +11,18 @@
   const version = "v1.0.0";
   const owner = "pivoshenko";
   const repository = "wallpapers";
+
+  function handleToggle() {
+    console.log("Toggle button clicked!");
+    toggleMode();
+  }
 </script>
 
-<ModeWatcher />
+<ModeWatcher track={true} defaultMode="system" />
 <Toaster />
 <div class="bg-background relative flex min-h-[100vh] flex-col gap-5">
-  <p class="text-muted-foreground absolute right-2 top-2 m-2">{version}</p>
-  <Button onclick={toggleMode} variant="ghost" size="icon" class="absolute left-2 right-2 m-2">
+  <p class="text-muted-foreground absolute right-2 top-2 z-40 m-2">{version}</p>
+  <Button onclick={handleToggle} variant="ghost" size="icon" class="absolute left-2 top-2 z-50 m-2">
     <Sun
       class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
     <Moon
