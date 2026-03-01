@@ -1,48 +1,54 @@
-import { readdirSync, readFileSync, statSync, writeFileSync } from "fs";
-import { join, extname, relative } from "path";
-import { imageSize } from "image-size";
+const { readdirSync, readFileSync, statSync, writeFileSync } = require('node:fs')
+const { extname, join, relative } = require('node:path')
+const { imageSize } = require('image-size')
 
-const staticDir = "./static/wallpapers";
-const outputFile = "./static/files.json";
+const wallpapersDir = './public/wallpapers'
+const outputFile = './public/files.json'
+const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.gif', '.webp'])
 
 function getFiles(dir, baseDir = dir) {
-  let allFiles = [];
+  let allFiles = []
 
-  const items = readdirSync(dir).filter((item) => !item.startsWith("."));
+  const items = readdirSync(dir)
+    .filter((item) => !item.startsWith('.'))
+    .sort((a, b) => a.localeCompare(b))
 
   for (const item of items) {
-    const itemPath = join(dir, item);
-    const stats = statSync(itemPath);
+    const itemPath = join(dir, item)
+    const stats = statSync(itemPath)
 
     if (stats.isDirectory()) {
-      // Recursively process subdirectories
-      allFiles = allFiles.concat(getFiles(itemPath, baseDir));
-    } else {
-      const sizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
-      const relativePath = relative(baseDir, itemPath);
-
-      let dimensions = { width: 0, height: 0 };
-      if ([".jpg", ".jpeg", ".png", ".gif", ".webp"].includes(extname(item).toLowerCase())) {
-        try {
-          const buffer = readFileSync(itemPath);
-          dimensions = imageSize(buffer);
-        } catch (error) {
-          console.warn(`Could not read dimensions for ${relativePath}:`, error.message);
-        }
-      }
-
-      allFiles.push({
-        filename: item,
-        path: relativePath.replace(/\\/g, "/"), // Normalize path separators
-        size: sizeInMB,
-        width: dimensions.width || 0,
-        height: dimensions.height || 0,
-      });
+      allFiles = allFiles.concat(getFiles(itemPath, baseDir))
+      continue
     }
+
+    const fileSizeMb = (stats.size / (1024 * 1024)).toFixed(2)
+    const fileExt = extname(item).toLowerCase()
+    const relativePath = relative(baseDir, itemPath).replaceAll('\\', '/')
+
+    let dimensions = { width: 0, height: 0 }
+    if (imageExtensions.has(fileExt)) {
+      try {
+        dimensions = imageSize(readFileSync(itemPath))
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : 'unknown dimension error'
+        console.warn(`Could not read dimensions for ${relativePath}: ${message}`)
+      }
+    }
+
+    allFiles.push({
+      filename: item,
+      path: relativePath,
+      size: fileSizeMb,
+      width: dimensions.width ?? 0,
+      height: dimensions.height ?? 0,
+    })
   }
 
-  return allFiles;
+  return allFiles
 }
 
-const files = getFiles(staticDir);
-writeFileSync(outputFile, JSON.stringify(files, null, 2));
+const files = getFiles(wallpapersDir)
+writeFileSync(outputFile, JSON.stringify(files, null, 2))
+console.log(`Generated ${files.length} entries in ${outputFile}`)
