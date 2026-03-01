@@ -1,42 +1,23 @@
 # pivoshenko.wallpapers
 
-Personal wallpapers app, rebuilt with Next.js App Router and Biome.
+A curated collection of high-quality wallpapers, organized by tags for easy browsing and downloading. Perfect for desktops, laptops and phones.
 
-## Stack
+## Contributions
 
-- Next.js 15
-- React 19
-- Tailwind CSS
-- Biome (formatting + linting)
+To maintain quality and consistency, please follow these rules when adding wallpapers. Place all wallpapers in the ./app/static/wallpapers directory. No subdirectories are needed.
 
-## Development
+### Naming Convention
 
-```bash
-pnpm install
-pnpm dev
-```
+All wallpapers must follow this format:
 
-The wallpapers index is generated from `public/wallpapers` into
-`public/files.json` via:
+`<name>_<tag_0>_<tag_1>_<tag_2>.png`
 
-```bash
-pnpm generate:wallpapers
-```
+- **Wallpaper name**: lowercase letters only, words separated by -. No spaces or special characters
+- **Tags**: lowercase letters only, separated by _
+- **GIFs**: must include the animated tag
+- **Accepted formats**: PNG, GIF only
 
-This runs automatically for `pnpm dev` and `pnpm build`.
+### Content Requirements
 
-## Naming convention
-
-Wallpaper files should follow:
-
-```text
-<name>_<tag0>_<tag1>.<ext>
-```
-
-Example:
-
-```text
-042_synthwave_neon.png
-```
-
-The app derives display title and tags from the filename.
+- High-quality images only (avoid blurry, pixelated, or low-resolution wallpapers; minimum resolution: 1920x1080 recommended)
+- **No NSFW** or offensive content
