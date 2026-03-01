@@ -1,4 +1,12 @@
-# pivoshenko.wallpapers
+# pivoshenko's wallpapers
+
+- [pivoshenko's wallpapers](#pivoshenkos-wallpapers)
+  - [Overview](#overview)
+  - [Contributions](#contributions)
+    - [Naming Convention](#naming-convention)
+    - [Content Requirements](#content-requirements)
+
+## Overview
 
 A curated collection of high-quality wallpapers, organized by tags for easy browsing and downloading. Perfect for desktops, laptops and phones.
 
