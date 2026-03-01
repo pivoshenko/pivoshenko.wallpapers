@@ -1,25 +1,30 @@
-# == Environment ==
+# env
 .env
 .env.*
 
-# == IDEs ==
+# editors
 .vscode
 .zed
 
-# == Node ==
-build
-.svelte-kit
-.netlify
-.output
-.wrangler
+# node
 node_modules
+
+# build output
+.next
+out
+dist
+build
+
+# deployments
 .vercel
 
-# == OS ==
+# local backups
+.legacy
+
+# os
 .DS_Store
 **/.DS_Store
 Thumbs.db
 
-# == Vite ==
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
+# typescript
+*.tsbuildinfo
