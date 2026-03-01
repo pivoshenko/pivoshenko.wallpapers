@@ -1,0 +1,332 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Catppuccin Latte */
+    --background: 220 23% 95%;
+    /* latte base */
+    --foreground: 234 16% 35%;
+    /* latte text */
+    --card: 220 23% 95%;
+    /* latte base */
+    --card-foreground: 234 16% 35%;
+    /* latte text */
+    --popover: 220 23% 95%;
+    /* latte base */
+    --popover-foreground: 234 16% 35%;
+    /* latte text */
+    --primary: 220 91% 54%;
+    /* latte blue */
+    --primary-foreground: 220 23% 95%;
+    /* latte base */
+    --secondary: 220 14% 89%;
+    /* latte mantle */
+    --secondary-foreground: 234 16% 35%;
+    /* latte text */
+    --muted: 220 14% 89%;
+    /* latte mantle */
+    --muted-foreground: 233 13% 54%;
+    /* latte subtext0 */
+    --accent: 220 14% 89%;
+    /* latte mantle */
+    --accent-foreground: 234 16% 35%;
+    /* latte text */
+    --destructive: 347 87% 44%;
+    /* latte red */
+    --destructive-foreground: 220 23% 95%;
+    /* latte base */
+    --border: 218 19% 87%;
+    /* latte surface0 */
+    --input: 218 11% 65%;
+    /* latte surface2 */
+    --ring: 266 85% 58%;
+    /* latte mauve */
+    --radius: 0.75rem;
+
+    /* Catppuccin Latte Extended Colors */
+    --ctp-rosewater: 11 59% 67%;
+    --ctp-flamingo: 0 60% 67%;
+    --ctp-pink: 316 73% 69%;
+    --ctp-mauve: 266 85% 58%;
+    --ctp-red: 347 87% 44%;
+    --ctp-maroon: 355 76% 59%;
+    --ctp-peach: 22 99% 52%;
+    --ctp-yellow: 35 77% 49%;
+    --ctp-green: 109 58% 40%;
+    --ctp-teal: 183 74% 35%;
+    --ctp-sky: 197 97% 46%;
+    --ctp-sapphire: 189 70% 42%;
+    --ctp-blue: 220 91% 54%;
+    --ctp-lavender: 231 97% 72%;
+
+    --sidebar-background: 220 23% 95%;
+    /* latte base */
+    --sidebar-foreground: 234 16% 35%;
+    /* latte text */
+    --sidebar-primary: 220 91% 54%;
+    /* latte blue */
+    --sidebar-primary-foreground: 220 23% 95%;
+    /* latte base */
+    --sidebar-accent: 220 14% 89%;
+    /* latte mantle */
+    --sidebar-accent-foreground: 234 16% 35%;
+    /* latte text */
+    --sidebar-border: 218 19% 87%;
+    /* latte surface0 */
+    --sidebar-ring: 220 91% 54%;
+    /* latte blue */
+  }
+
+  .dark {
+    /* Catppuccin Mocha */
+    --background: 240 21% 15%;
+    /* mocha base */
+    --foreground: 226 64% 88%;
+    /* mocha text */
+    --card: 237 16% 23%;
+    /* mocha surface0 */
+    --card-foreground: 226 64% 88%;
+    /* mocha text */
+    --popover: 237 16% 23%;
+    /* mocha surface0 */
+    --popover-foreground: 226 64% 88%;
+    /* mocha text */
+    --primary: 217 92% 76%;
+    /* mocha blue */
+    --primary-foreground: 240 21% 15%;
+    /* mocha base */
+    --secondary: 234 13% 31%;
+    /* mocha surface1 */
+    --secondary-foreground: 226 64% 88%;
+    /* mocha text */
+    --muted: 234 13% 31%;
+    /* mocha surface1 */
+    --muted-foreground: #a6adc8;
+    /* mocha subtext0 */
+    --accent: 234 13% 31%;
+    /* mocha surface1 */
+    --accent-foreground: 226 64% 88%;
+    /* mocha text */
+    --destructive: 343 81% 75%;
+    /* mocha red */
+    --destructive-foreground: 240 21% 15%;
+    /* mocha base */
+    --border: 234 13% 31%;
+    /* mocha surface1 */
+    --input: 233 12% 39%;
+    /* mocha surface2 */
+    --ring: 217 92% 76%;
+    /* mocha blue */
+
+    /* Catppuccin Mocha Extended Colors */
+    --ctp-rosewater: 10 56% 91%;
+    --ctp-flamingo: 0 59% 88%;
+    --ctp-pink: 316 72% 86%;
+    --ctp-mauve: 267 84% 81%;
+    --ctp-red: 343 81% 75%;
+    --ctp-maroon: 350 65% 77%;
+    --ctp-peach: 23 92% 75%;
+    --ctp-yellow: 41 86% 83%;
+    --ctp-green: 115 54% 76%;
+    --ctp-teal: 170 57% 73%;
+    --ctp-sky: 189 71% 73%;
+    --ctp-sapphire: 199 76% 69%;
+    --ctp-blue: 217 92% 76%;
+    --ctp-lavender: 232 97% 85%;
+
+    --sidebar-background: 237 16% 23%;
+    /* mocha surface0 */
+    --sidebar-foreground: 226 64% 88%;
+    /* mocha text */
+    --sidebar-primary: 217 92% 76%;
+    /* mocha blue */
+    --sidebar-primary-foreground: 240 21% 15%;
+    /* mocha base */
+    --sidebar-accent: 234 13% 31%;
+    /* mocha surface1 */
+    --sidebar-accent-foreground: 226 64% 88%;
+    /* mocha text */
+    --sidebar-border: 234 13% 31%;
+    /* mocha surface1 */
+    --sidebar-ring: 217 92% 76%;
+    /* mocha blue */
+  }
+
+  /* Catppuccin Macchiato */
+  /* --background: 232 23% 18%; macchiato base */
+  /* --foreground: 227 68% 88%; macchiato text */
+  /* --card: 233 25% 22%; /* macchiato surface0 */
+  /* --card-foreground: 227 68% 88%; macchiato text */
+  /* --popover: 233 25% 22%; macchiato surface0 */
+  /* --popover-foreground: 227 68% 88%; macchiato text */
+  /* --primary: 267 83% 80%; macchiato mauve */
+  /* --primary-foreground: 232 23% 18%; macchiato base */
+  /* --secondary: 230 19% 26%; macchiato surface1 */
+  /* --secondary-foreground: 227 68% 88%; macchiato text */
+  /* --muted: 230 19% 26%; macchiato surface1 */
+  /* --muted-foreground: 227 35% 80%; macchiato subtext0 */
+  /* --accent: 230 19% 26%; macchiato surface1 */
+  /* --accent-foreground: 227 68% 88%; macchiato text */
+  /* --destructive: 351 74% 73%; macchiato red */
+  /* --destructive-foreground: 232 23% 18%; macchiato base */
+  /* --border: 230 19% 26%; macchiato surface1 */
+  /* --input: 228 12% 34%; macchiato surface2 */
+  /* --ring: 267 83% 80%; macchiato mauve */
+
+  /* --sidebar-background: 233 25% 22%; macchiato surface0 */
+  /* --sidebar-foreground: 227 68% 88%; macchiato text */
+  /* --sidebar-primary: 267 83% 80%; macchiato mauve */
+  /* --sidebar-primary-foreground: 232 23% 18%; macchiato base */
+  /* --sidebar-accent: 230 19% 26%; macchiato surface1 */
+  /* --sidebar-accent-foreground: 227 68% 88%; macchiato text */
+  /* --sidebar-border: 230 19% 26%; macchiato surface1 */
+  /* --sidebar-ring: 267 83% 80%; macchiato mauve */
+}
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply bg-background text-foreground;
+}
+
+h1 {
+  @apply mb-6 scroll-m-20 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-5xl;
+}
+
+h2 {
+  @apply my-10 mb-5 scroll-m-20 text-3xl font-semibold tracking-tight transition-colors sm:text-4xl;
+}
+
+h3 {
+  @apply mb-4 scroll-m-20 text-2xl font-semibold tracking-tight transition-colors;
+}
+
+h4 {
+  @apply mb-2 scroll-m-20 text-xl font-semibold tracking-tight transition-colors;
+}
+
+h5 {
+  @apply scroll-m-20 text-lg font-semibold tracking-tight transition-colors;
+}
+
+h6 {
+  @apply scroll-m-20 text-base font-semibold tracking-tight transition-colors;
+}
+
+hr {
+  @apply mx-auto my-6 w-4/5;
+}
+
+p {
+  @apply leading-7;
+}
+
+p > a {
+  @apply underline-offset-4 opacity-75 transition-opacity hover:underline;
+}
+
+p > a.active {
+  @apply font-medium opacity-100;
+}
+
+blockquote {
+  @apply mt-6 border-l-2 pl-6 italic;
+}
+
+code {
+  @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+}
+
+main {
+  @apply mx-auto w-full px-4 py-2;
+}
+
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dark .bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Catppuccin-inspired animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(203, 166, 247, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(203, 166, 247, 0.2);
+  }
+}
+
+@keyframes shimmer-catppuccin {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 4s ease-in-out infinite;
+}
+
+/* Custom scrollbar with Catppuccin colors */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--ctp-mauve) / 0.3);
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--ctp-mauve) / 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: hsl(var(--ctp-mauve) / 0.4);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--ctp-mauve) / 0.6);
+}
