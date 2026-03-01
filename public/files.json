@@ -271,5 +271,33 @@
     "size": "0.29",
     "width": 3504,
     "height": 1760
+  },
+  {
+    "filename": "039_game.jpg",
+    "path": "039_game.jpg",
+    "size": "7.92",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "filename": "040_game.jpg",
+    "path": "040_game.jpg",
+    "size": "11.26",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "filename": "041_game.jpg",
+    "path": "041_game.jpg",
+    "size": "7.05",
+    "width": 3840,
+    "height": 2160
+  },
+  {
+    "filename": "042_game.jpg",
+    "path": "042_game.jpg",
+    "size": "14.98",
+    "width": 3840,
+    "height": 2160
   }
 ]
