@@ -49,7 +49,7 @@
     --ctp-rosewater: 11 59% 67%;
     --ctp-flamingo: 0 60% 67%;
     --ctp-pink: 316 73% 69%;
-    --ctp-mauve: 266 85% 58%;
+    --ctp-mauve: 11 59% 67%;
     --ctp-red: 347 87% 44%;
     --ctp-maroon: 355 76% 59%;
     --ctp-peach: 22 99% 52%;
@@ -80,78 +80,78 @@
   }
 
   .dark {
-    /* Catppuccin Mocha */
-    --background: 240 21% 15%;
-    /* mocha base */
-    --foreground: 226 64% 88%;
-    /* mocha text */
-    --card: 237 16% 23%;
-    /* mocha surface0 */
-    --card-foreground: 226 64% 88%;
-    /* mocha text */
-    --popover: 237 16% 23%;
-    /* mocha surface0 */
-    --popover-foreground: 226 64% 88%;
-    /* mocha text */
-    --primary: 217 92% 76%;
-    /* mocha blue */
-    --primary-foreground: 240 21% 15%;
-    /* mocha base */
-    --secondary: 234 13% 31%;
-    /* mocha surface1 */
-    --secondary-foreground: 226 64% 88%;
-    /* mocha text */
-    --muted: 234 13% 31%;
-    /* mocha surface1 */
-    --muted-foreground: #a6adc8;
-    /* mocha subtext0 */
-    --accent: 234 13% 31%;
-    /* mocha surface1 */
-    --accent-foreground: 226 64% 88%;
-    /* mocha text */
-    --destructive: 343 81% 75%;
-    /* mocha red */
-    --destructive-foreground: 240 21% 15%;
-    /* mocha base */
-    --border: 234 13% 31%;
-    /* mocha surface1 */
-    --input: 233 12% 39%;
-    /* mocha surface2 */
-    --ring: 217 92% 76%;
-    /* mocha blue */
+    /* Catppuccin Frappe */
+    --background: 229 19% 23%;
+    /* frappe base */
+    --foreground: 227 70% 87%;
+    /* frappe text */
+    --card: 230 16% 30%;
+    /* frappe surface0 */
+    --card-foreground: 227 70% 87%;
+    /* frappe text */
+    --popover: 230 16% 30%;
+    /* frappe surface0 */
+    --popover-foreground: 227 70% 87%;
+    /* frappe text */
+    --primary: 222 74% 74%;
+    /* frappe blue */
+    --primary-foreground: 229 19% 23%;
+    /* frappe base */
+    --secondary: 227 15% 37%;
+    /* frappe surface1 */
+    --secondary-foreground: 227 70% 87%;
+    /* frappe text */
+    --muted: 227 15% 37%;
+    /* frappe surface1 */
+    --muted-foreground: 228 29% 73%;
+    /* frappe subtext0 */
+    --accent: 227 15% 37%;
+    /* frappe surface1 */
+    --accent-foreground: 227 70% 87%;
+    /* frappe text */
+    --destructive: 359 68% 71%;
+    /* frappe red */
+    --destructive-foreground: 229 19% 23%;
+    /* frappe base */
+    --border: 227 15% 37%;
+    /* frappe surface1 */
+    --input: 228 13% 44%;
+    /* frappe surface2 */
+    --ring: 222 74% 74%;
+    /* frappe blue */
 
-    /* Catppuccin Mocha Extended Colors */
-    --ctp-rosewater: 10 56% 91%;
-    --ctp-flamingo: 0 59% 88%;
-    --ctp-pink: 316 72% 86%;
-    --ctp-mauve: 267 84% 81%;
-    --ctp-red: 343 81% 75%;
-    --ctp-maroon: 350 65% 77%;
-    --ctp-peach: 23 92% 75%;
-    --ctp-yellow: 41 86% 83%;
-    --ctp-green: 115 54% 76%;
-    --ctp-teal: 170 57% 73%;
-    --ctp-sky: 189 71% 73%;
-    --ctp-sapphire: 199 76% 69%;
-    --ctp-blue: 217 92% 76%;
-    --ctp-lavender: 232 97% 85%;
+    /* Catppuccin Frappe Extended Colors */
+    --ctp-rosewater: 10 57% 88%;
+    --ctp-flamingo: 0 59% 84%;
+    --ctp-pink: 316 73% 84%;
+    --ctp-mauve: 10 57% 88%;
+    --ctp-red: 359 68% 71%;
+    --ctp-maroon: 358 66% 76%;
+    --ctp-peach: 20 79% 70%;
+    --ctp-yellow: 40 62% 73%;
+    --ctp-green: 96 44% 68%;
+    --ctp-teal: 172 39% 65%;
+    --ctp-sky: 189 48% 73%;
+    --ctp-sapphire: 199 55% 69%;
+    --ctp-blue: 222 74% 74%;
+    --ctp-lavender: 239 66% 84%;
 
-    --sidebar-background: 237 16% 23%;
-    /* mocha surface0 */
-    --sidebar-foreground: 226 64% 88%;
-    /* mocha text */
-    --sidebar-primary: 217 92% 76%;
-    /* mocha blue */
-    --sidebar-primary-foreground: 240 21% 15%;
-    /* mocha base */
-    --sidebar-accent: 234 13% 31%;
-    /* mocha surface1 */
-    --sidebar-accent-foreground: 226 64% 88%;
-    /* mocha text */
-    --sidebar-border: 234 13% 31%;
-    /* mocha surface1 */
-    --sidebar-ring: 217 92% 76%;
-    /* mocha blue */
+    --sidebar-background: 230 16% 30%;
+    /* frappe surface0 */
+    --sidebar-foreground: 227 70% 87%;
+    /* frappe text */
+    --sidebar-primary: 222 74% 74%;
+    /* frappe blue */
+    --sidebar-primary-foreground: 229 19% 23%;
+    /* frappe base */
+    --sidebar-accent: 227 15% 37%;
+    /* frappe surface1 */
+    --sidebar-accent-foreground: 227 70% 87%;
+    /* frappe text */
+    --sidebar-border: 227 15% 37%;
+    /* frappe surface1 */
+    --sidebar-ring: 222 74% 74%;
+    /* frappe blue */
   }
 
   /* Catppuccin Macchiato */
