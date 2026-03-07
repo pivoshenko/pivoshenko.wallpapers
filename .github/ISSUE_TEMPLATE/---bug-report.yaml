@@ -1,50 +1,40 @@
 name: Bug Report
 labels: ["type: bug"]
-description: Create a report to help us improve the wallpapers experience
+description: Create a report to help us identify and fix a problem
 
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to file a bug report for the wallpapers collection!
-        This helps us improve the browsing and filtering experience for everyone.
+        Thank you for taking the time to file a bug report.
+        Please provide as much detail as possible so maintainers can reproduce and fix the issue quickly.
 
-  - type: dropdown
+  - type: textarea
     attributes:
-      label: Bug Category
-      description: What type of issue are you experiencing?
-      options:
-        - Wallpaper Display Issues
-        - Filtering/Search Problems
-        - Download Issues
-        - UI/UX Problems
-        - Performance Issues
-        - Mobile Responsiveness
-        - Other
+      label: Description
+      description: |
+        Describe what happened and what you expected to happen.
+        Include screenshots or recordings if they help explain the issue.
     validations:
       required: true
 
   - type: textarea
     attributes:
-      label: Describe The Bug
+      label: Steps to Reproduce
       description: |
-        Please describe what happened, with as much detail as possible.
-        If it's a wallpaper display issue, please mention which specific wallpaper(s).
-        For filtering issues, mention which filter(s) you were using.
+        Provide clear, minimal steps that reproduce the issue.
       placeholder: |
-        Example: "When I filter by 'anime' category, wallpaper 001_anime.png doesn't appear in the results"
+        1. Go to ...
+        2. Run ...
+        3. Observe ...
     validations:
       required: true
 
   - type: textarea
     attributes:
-      label: Steps To Reproduce
+      label: Current Behavior
       description: |
-        Please provide step-by-step instructions to reproduce the bug.
-      placeholder: |
-        1. Go to the wallpapers page
-        2. Click on '...' filter
-        3. See error
+        What result do you currently see?
     validations:
       required: true
 
@@ -52,25 +42,25 @@ body:
     attributes:
       label: Expected Behavior
       description: |
-        A clear description of what you expected to happen.
-    validations:
-      required: false
-
-  - type: input
-    attributes:
-      label: Browser & Version
-      description: |
-        Which browser and version are you using?
-      placeholder: "e.g., Chrome 120, Firefox 121, Safari 17, Zen 1.0"
+        What result did you expect to see instead?
     validations:
       required: true
 
   - type: input
     attributes:
-      label: Device & Screen Resolution
+      label: Environment
       description: |
-        What device are you using and what's your screen resolution?
-      placeholder: "e.g., Desktop 1920x1080, Mobile iPhone 14, Tablet iPad Pro"
+        Provide relevant environment details (for example: OS, browser/runtime, language/framework versions).
+      placeholder: "Ubuntu 24.04, Node.js 22.x, Chrome 124"
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Logs and Error Output
+      description: |
+        Paste relevant logs, stack traces, or error output.
+      render: shell
     validations:
       required: false
 
@@ -78,7 +68,14 @@ body:
     attributes:
       label: Additional Context
       description: |
-        Add any other context about the problem here.
-        Screenshots are very helpful for wallpaper display issues!
+        Add any other context, links, or related issues.
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Possible Workaround
+      description: |
+        If you found a temporary workaround, share it here.
     validations:
       required: false
