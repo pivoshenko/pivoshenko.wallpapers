@@ -3,7 +3,7 @@ export function Footer() {
     <footer className="w-full border-t border-ui">
       <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
         <span className="type-meta fg-muted">
-          {new Date().getFullYear()} Volodymyr Pivoshenko
+          2026 Volodymyr Pivoshenko &lt;contact@pivoshenko.dev&gt;
         </span>
         <div className="flex items-center gap-4">
           <a
