@@ -40,7 +40,7 @@ function LoadingGrid() {
       {Array.from({ length: 12 }, (_, item) => item + 1).map((item) => (
         <div
           key={`loading-${item}`}
-          className="overflow-hidden rounded-xl border border-faint bg-white dark:bg-stone-900"
+          className="overflow-hidden rounded border border-faint bg-white dark:bg-stone-900"
         >
           <div className="aspect-[16/9] animate-pulse bg-stone-200 dark:bg-stone-800" />
           <div className="space-y-2 p-4">
@@ -146,7 +146,7 @@ export function WallpaperBrowser() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search wallpapers..."
-              className="w-full rounded-md border border-ui bg-white px-3 py-2 type-ui fg-primary placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 dark:bg-stone-900"
+              className="w-full rounded border border-ui bg-white px-3 py-2 type-ui fg-primary placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 dark:bg-stone-900"
             />
           </div>
           <p className="type-meta fg-muted">
@@ -192,7 +192,7 @@ export function WallpaperBrowser() {
           {filtered.map((wallpaper) => (
             <article
               key={wallpaper.path}
-              className="group overflow-hidden rounded-xl border border-faint bg-white dark:bg-stone-900"
+              className="group overflow-hidden rounded border border-faint bg-white dark:bg-stone-900"
             >
               <div className="relative aspect-[16/9] overflow-hidden border-b border-faint">
                 <Image
@@ -252,7 +252,7 @@ export function WallpaperBrowser() {
           }}
         >
           <div
-            className="mx-auto mt-8 max-w-3xl rounded-xl border border-ui bg-stone-50 p-6 dark:bg-stone-950"
+            className="mx-auto mt-8 max-w-3xl rounded border border-ui bg-stone-50 p-6 dark:bg-stone-950"
             onMouseDown={(event) => event.stopPropagation()}
           >
             <div className="space-y-4">
@@ -267,7 +267,7 @@ export function WallpaperBrowser() {
                 </button>
               </div>
 
-              <div className="relative aspect-[16/9] overflow-hidden rounded-lg border border-faint">
+              <div className="relative aspect-[16/9] overflow-hidden rounded border border-faint">
                 <Image
                   src={`/wallpapers/${active.path}`}
                   alt={`${active.name} wallpaper preview`}
@@ -305,7 +305,7 @@ export function WallpaperBrowser() {
                 ))}
               </div>
 
-              <div className="rounded-md border border-ui bg-white p-3 dark:bg-stone-900">
+              <div className="rounded border border-ui bg-white p-3 dark:bg-stone-900">
                 <pre className="overflow-x-auto type-meta fg-body">{`image = pkgs.fetchurl {
   url = "${toRawDownloadUrl(active.path)}";
   sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -317,14 +317,14 @@ export function WallpaperBrowser() {
                   href={toRawDownloadUrl(active.path)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-md border border-ui px-3 py-2 type-ui fg-primary hover:bg-stone-100 dark:hover:bg-stone-900"
+                  className="inline-flex items-center rounded border border-ui px-3 py-2 type-ui fg-primary hover:bg-stone-100 dark:hover:bg-stone-900"
                 >
                   Download original
                 </a>
                 <button
                   type="button"
                   onClick={() => onCopyNix(active)}
-                  className="rounded-md border border-ui px-3 py-2 type-ui fg-primary hover:bg-stone-100 dark:hover:bg-stone-900"
+                  className="rounded border border-ui px-3 py-2 type-ui fg-primary hover:bg-stone-100 dark:hover:bg-stone-900"
                 >
                   Copy nix snippet
                 </button>
