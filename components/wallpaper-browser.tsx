@@ -58,7 +58,9 @@ export function WallpaperBrowser() {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [search, setSearch] = useState('')
   const [active, setActive] = useState<Wallpaper | null>(null)
-  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle')
+  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>(
+    'idle',
+  )
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -86,8 +88,8 @@ export function WallpaperBrowser() {
 
   const tags = useMemo(
     () =>
-      [...new Set(wallpapers.flatMap((wallpaper) => wallpaper.tags))].sort((a, b) =>
-        a.localeCompare(b),
+      [...new Set(wallpapers.flatMap((wallpaper) => wallpaper.tags))].sort(
+        (a, b) => a.localeCompare(b),
       ),
     [wallpapers],
   )

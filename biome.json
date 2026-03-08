@@ -32,12 +32,6 @@
     }
   },
   "files": {
-    "ignore": [
-      "node_modules",
-      ".next",
-      "dist",
-      ".svelte-kit",
-      ".legacy"
-    ]
+    "ignore": ["node_modules", ".next", "dist", ".svelte-kit", ".legacy"]
   }
 }
