@@ -12,7 +12,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="type-meta fg-muted hover-secondary transition-colors"
-            >
+          >
             <span className="sr-only">GitHub</span>
             <svg
               role="img"
@@ -30,7 +30,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="type-meta fg-muted hover-secondary transition-colors"
-            >
+          >
             <span className="sr-only">LinkedIn</span>
             <svg
               role="img"

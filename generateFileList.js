@@ -1,4 +1,9 @@
-const { readdirSync, readFileSync, statSync, writeFileSync } = require('node:fs')
+const {
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} = require('node:fs')
 const { extname, join, relative } = require('node:path')
 const { imageSize } = require('image-size')
 
@@ -33,7 +38,9 @@ function getFiles(dir, baseDir = dir) {
       } catch (error) {
         const message =
           error instanceof Error ? error.message : 'unknown dimension error'
-        console.warn(`Could not read dimensions for ${relativePath}: ${message}`)
+        console.warn(
+          `Could not read dimensions for ${relativePath}: ${message}`,
+        )
       }
     }
 

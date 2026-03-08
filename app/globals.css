@@ -83,11 +83,11 @@
   }
 
   ::selection {
-    background-color: theme('colors.stone.200');
+    background-color: theme("colors.stone.200");
   }
 
   .dark ::selection {
-    background-color: theme('colors.stone.700');
+    background-color: theme("colors.stone.700");
   }
 
   * {
