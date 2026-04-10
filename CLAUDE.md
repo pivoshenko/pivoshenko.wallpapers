@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A Next.js 16 wallpaper gallery site for browsing, filtering, and downloading wallpapers from Volodymyr Pivoshenko's personal collection. Deployed on Vercel. Uses Geist font family, Tailwind CSS with a stone-based color palette, and dark/light theme support via `next-themes`.
+A Next.js 16 wallpaper gallery site for browsing, filtering, and downloading wallpapers from Volodymyr Pivoshenko's personal collection. Deployed on Vercel. Uses JetBrains Mono font (via `next/font/google`), Tailwind CSS with a stone-based color palette, and dark/light theme support via `next-themes`.
 
 ## Commands
 
@@ -35,7 +35,7 @@ Filenames encode metadata: `name_tag1_tag2.ext`. The name segment uses hyphens f
 ### Key files
 
 - `components/wallpaper-browser.tsx` — client component (`'use client'`); the main gallery with search, tag filtering, detail modal, and Nix snippet copy
-- `app/layout.tsx` — root layout with ThemeProvider, Geist fonts, Vercel Analytics
+- `app/layout.tsx` — root layout with ThemeProvider, JetBrains Mono font, Vercel Analytics
 - `app/globals.css` — design token definitions
 
 ### Formatting rules (Biome)
