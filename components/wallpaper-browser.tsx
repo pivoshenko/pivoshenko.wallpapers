@@ -40,7 +40,7 @@ function LoadingGrid() {
       {Array.from({ length: 12 }, (_, item) => item + 1).map((item) => (
         <div
           key={`loading-${item}`}
-          className="overflow-hidden rounded border border-faint bg-white dark:bg-stone-900"
+          className="overflow-hidden rounded border border-ui bg-white dark:bg-stone-950"
         >
           <div className="aspect-[16/9] animate-pulse bg-stone-200 dark:bg-stone-800" />
           <div className="space-y-2 p-4">
@@ -146,7 +146,7 @@ export function WallpaperBrowser() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search wallpapers..."
-              className="w-full rounded border border-ui bg-white px-3 py-2 type-ui fg-primary placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 dark:bg-stone-900"
+              className="w-full rounded border border-ui bg-white px-3 py-2 type-ui fg-primary placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 dark:bg-stone-950"
             />
           </div>
           <p className="type-meta fg-muted">
@@ -162,10 +162,10 @@ export function WallpaperBrowser() {
                 key={tag}
                 type="button"
                 onClick={() => onToggleTag(tag)}
-                className={`type-meta px-2 py-1 rounded border transition-colors ${
+                className={`type-meta px-1.5 py-0.5 rounded transition-colors ${
                   activeTag
-                    ? 'border-stone-400 text-stone-800 dark:text-stone-200 bg-stone-200 dark:bg-stone-800'
-                    : 'border-ui fg-muted hover-secondary'
+                    ? 'bg-tag-active'
+                    : 'bg-tag fg-muted hover-secondary'
                 }`}
               >
                 {tag}
@@ -192,7 +192,7 @@ export function WallpaperBrowser() {
           {filtered.map((wallpaper) => (
             <article
               key={wallpaper.path}
-              className="group overflow-hidden rounded border border-faint bg-white dark:bg-stone-900"
+              className="group overflow-hidden rounded border border-ui bg-white dark:bg-stone-950"
             >
               <div className="relative aspect-[16/9] overflow-hidden border-b border-faint">
                 <Image
@@ -223,7 +223,7 @@ export function WallpaperBrowser() {
                   {wallpaper.tags.slice(0, 3).map((tag) => (
                     <span
                       key={`${wallpaper.path}-${tag}`}
-                      className="type-meta px-2 py-0.5 rounded border border-ui fg-muted"
+                      className="type-meta px-1.5 py-0.5 rounded bg-tag fg-muted"
                     >
                       {tag}
                     </span>
@@ -298,14 +298,14 @@ export function WallpaperBrowser() {
                 {active.tags.map((tag) => (
                   <span
                     key={`${active.path}-tag-${tag}`}
-                    className="type-meta px-2 py-1 rounded border border-ui fg-muted"
+                    className="type-meta px-1.5 py-0.5 rounded bg-tag fg-muted"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
 
-              <div className="rounded border border-ui bg-white p-3 dark:bg-stone-900">
+              <div className="rounded border border-ui bg-white p-3 dark:bg-stone-950">
                 <pre className="overflow-x-auto type-meta fg-body">{`image = pkgs.fetchurl {
   url = "${toRawDownloadUrl(active.path)}";
   sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
