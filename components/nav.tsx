@@ -17,17 +17,7 @@ export function Nav() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <a
-            href="https://pivoshenko.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="type-ui px-2 py-1 rounded fg-subtle hover-primary transition-colors"
-          >
-            Blog
-          </a>
-          <div className="pl-2 border-l border-ui">
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
         </div>
       </nav>
     </header>
