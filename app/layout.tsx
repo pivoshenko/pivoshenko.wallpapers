@@ -1,8 +1,6 @@
-import { Footer } from '@/components/footer'
-import { Nav } from '@/components/nav'
 import { Analytics } from '@vercel/analytics/next'
 import { JetBrains_Mono } from 'next/font/google'
-import { ScrollToTop } from 'pivoshenko.ui'
+import { PageShell } from 'pivoshenko.ui'
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -34,14 +32,7 @@ export default function RootLayout({
     >
       <body className="bg-stone-50 text-stone-900 dark:bg-black dark:text-stone-100 font-mono antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="min-h-screen flex flex-col">
-            <Nav />
-            <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-6">
-              {children}
-            </main>
-            <Footer />
-          </div>
-          <ScrollToTop />
+          <PageShell brand="pivoshenko.wallpapers">{children}</PageShell>
         </ThemeProvider>
         <Analytics />
       </body>
