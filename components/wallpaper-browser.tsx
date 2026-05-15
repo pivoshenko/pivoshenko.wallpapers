@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { SearchInput, Tag, TagButton } from 'pivoshenko.ui'
 import { useEffect, useMemo, useState } from 'react'
 
 type FileRecord = {
@@ -141,37 +142,28 @@ export function WallpaperBrowser() {
     <div className="space-y-8">
       <section className="space-y-4 border-b border-ui pb-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="relative w-full sm:max-w-sm">
-            <input
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder="Search wallpapers..."
-              className="w-full rounded border border-ui bg-white px-3 py-2 type-ui fg-primary placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 dark:bg-stone-950"
-            />
-          </div>
+          <SearchInput
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search wallpapers..."
+            onClear={() => setSearch('')}
+            className="w-full sm:max-w-sm"
+          />
           <p className="type-meta fg-muted">
             {filtered.length} / {wallpapers.length} wallpapers
           </p>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => {
-            const activeTag = selectedTags.includes(tag)
-            return (
-              <button
-                key={tag}
-                type="button"
-                onClick={() => onToggleTag(tag)}
-                className={`type-meta px-1.5 py-0.5 rounded transition-colors ${
-                  activeTag
-                    ? 'bg-tag-active'
-                    : 'bg-tag fg-muted hover-secondary'
-                }`}
-              >
-                {tag}
-              </button>
-            )
-          })}
+          {tags.map((tag) => (
+            <TagButton
+              key={tag}
+              active={selectedTags.includes(tag)}
+              onClick={() => onToggleTag(tag)}
+            >
+              {tag}
+            </TagButton>
+          ))}
         </div>
 
         {hasFilters && (
@@ -221,12 +213,7 @@ export function WallpaperBrowser() {
 
                 <div className="flex flex-wrap gap-1">
                   {wallpaper.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={`${wallpaper.path}-${tag}`}
-                      className="type-meta px-1.5 py-0.5 rounded bg-tag fg-muted"
-                    >
-                      {tag}
-                    </span>
+                    <Tag key={`${wallpaper.path}-${tag}`}>{tag}</Tag>
                   ))}
                 </div>
 
@@ -296,12 +283,7 @@ export function WallpaperBrowser() {
 
               <div className="flex flex-wrap gap-1">
                 {active.tags.map((tag) => (
-                  <span
-                    key={`${active.path}-tag-${tag}`}
-                    className="type-meta px-1.5 py-0.5 rounded bg-tag fg-muted"
-                  >
-                    {tag}
-                  </span>
+                  <Tag key={`${active.path}-tag-${tag}`}>{tag}</Tag>
                 ))}
               </div>
 
