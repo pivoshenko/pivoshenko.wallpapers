@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { SearchInput, Tag, TagButton } from 'pivoshenko.ui'
+import { Tag, TagButton } from 'pivoshenko.ui'
 import { useEffect, useMemo, useState } from 'react'
 
 type FileRecord = {
@@ -57,7 +57,6 @@ function LoadingGrid() {
 export function WallpaperBrowser() {
   const [wallpapers, setWallpapers] = useState<Wallpaper[]>([])
   const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [search, setSearch] = useState('')
   const [active, setActive] = useState<Wallpaper | null>(null)
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>(
     'idle',
@@ -96,21 +95,13 @@ export function WallpaperBrowser() {
   )
 
   const filtered = useMemo(() => {
-    const normalizedSearch = search.trim().toLowerCase()
+    if (selectedTags.length === 0) return wallpapers
+    return wallpapers.filter((wallpaper) =>
+      selectedTags.some((tag) => wallpaper.tags.includes(tag)),
+    )
+  }, [selectedTags, wallpapers])
 
-    return wallpapers.filter((wallpaper) => {
-      const matchesTags =
-        selectedTags.length === 0 ||
-        selectedTags.some((tag) => wallpaper.tags.includes(tag))
-      const matchesSearch =
-        normalizedSearch.length === 0 ||
-        wallpaper.name.toLowerCase().includes(normalizedSearch)
-
-      return matchesTags && matchesSearch
-    })
-  }, [search, selectedTags, wallpapers])
-
-  const hasFilters = search.trim().length > 0 || selectedTags.length > 0
+  const hasFilters = selectedTags.length > 0
 
   const onToggleTag = (tag: string) => {
     setSelectedTags((current) =>
@@ -121,7 +112,6 @@ export function WallpaperBrowser() {
   }
 
   const onClearFilters = () => {
-    setSearch('')
     setSelectedTags([])
   }
 
@@ -141,19 +131,6 @@ export function WallpaperBrowser() {
   return (
     <div className="space-y-8">
       <section className="space-y-4 border-b border-ui pb-6">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <SearchInput
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search wallpapers..."
-            onClear={() => setSearch('')}
-            className="w-full sm:max-w-sm"
-          />
-          <p className="type-meta fg-muted">
-            {filtered.length} / {wallpapers.length} wallpapers
-          </p>
-        </div>
-
         <div className="flex flex-wrap gap-2">
           {tags.map((tag) => (
             <TagButton

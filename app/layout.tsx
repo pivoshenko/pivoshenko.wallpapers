@@ -2,6 +2,7 @@ import { Footer } from '@/components/footer'
 import { Nav } from '@/components/nav'
 import { Analytics } from '@vercel/analytics/next'
 import { JetBrains_Mono } from 'next/font/google'
+import { ScrollToTop } from 'pivoshenko.ui'
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -40,6 +41,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
+          <ScrollToTop />
         </ThemeProvider>
         <Analytics />
       </body>
