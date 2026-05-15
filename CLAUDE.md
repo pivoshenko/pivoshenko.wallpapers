@@ -30,13 +30,23 @@ Filenames encode metadata: `name_tag1_tag2.ext`. The name segment uses hyphens f
 
 ### Component design tokens
 
-`app/globals.css` defines a custom Tailwind `@layer components` system for typography (`type-heading`, `type-body`, `type-ui`, `type-label`, `type-meta`, `type-logo`), foreground colors (`fg-primary` through `fg-muted`), hover states (`hover-primary`, `hover-secondary`), and borders (`border-ui`, `border-faint`). Use these utility classes instead of raw Tailwind color/text classes.
+`app/globals.css` defines a local copy of the Tailwind `@layer components` design tokens (`type-*`, `fg-*`, `hover-*`, `bg-tag*`, `border-*`). The canonical source is `pivoshenko.ui/ui/globals.css` — this site has not yet migrated to import the shared file. Use the token classes instead of raw Tailwind utilities for consistency.
 
 ### Key files
 
-- `components/wallpaper-browser.tsx` — client component (`'use client'`); the main gallery with search, tag filtering, detail modal, and Nix snippet copy
+- `components/wallpaper-browser.tsx` — client component (`'use client'`); the main gallery with search, tag filtering, detail modal, and Nix snippet copy. Uses `SearchInput`, `Tag`, `TagButton` from `pivoshenko.ui`.
+- `components/{footer,nav,theme-toggle}.tsx` — local copies. Canonical implementations live in `pivoshenko.ui` (`Footer`, `Nav`, `ThemeToggle`); a follow-up migration can delete these and use `<PageShell>` like `pivoshenko.startpage` does.
 - `app/layout.tsx` — root layout with ThemeProvider, JetBrains Mono font, Vercel Analytics
-- `app/globals.css` — design token definitions
+- `app/globals.css` — design token definitions (local; see note above)
+
+### Shared package consumption
+
+This site pins `pivoshenko.ui` via git tag in `package.json`. See parent `me/CLAUDE.md` for the cross-cutting pattern.
+
+- `biome.json` extends `./node_modules/pivoshenko.ui/config/biome.json`
+- `tsconfig.json` extends `pivoshenko.ui/tsconfig.base.json`
+- `tailwind.config.ts` uses `pivoshenko.ui/tailwind-preset` + content glob pointing at the package source
+- `next.config.ts` needs `transpilePackages: ['pivoshenko.ui']`
 
 ### Formatting rules (Biome)
 
