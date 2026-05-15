@@ -48,6 +48,10 @@ This site pins `pivoshenko.ui` via git tag in `package.json`. See parent `me/CLA
 - `tailwind.config.ts` uses `pivoshenko.ui/tailwind-preset` + content glob pointing at the package source
 - `next.config.ts` needs `transpilePackages: ['pivoshenko.ui']`
 
+### Required env vars
+
+None. `@vercel/analytics` is wired via the Vercel integration. If a future build needs a secret, add it here as: name · purpose · scope (build/runtime) · visibility (`NEXT_PUBLIC_` public vs secret).
+
 ### Formatting rules (Biome)
 
 - Indent: 2 spaces

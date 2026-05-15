@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "pnpm generate:wallpapers && next dev --turbopack",
     "build": "pnpm generate:wallpapers && next build",
