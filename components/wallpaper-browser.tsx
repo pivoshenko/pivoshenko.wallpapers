@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { Tag, TagButton } from 'pivoshenko.ui'
+import type { MouseEvent } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 
 type FileRecord = {
@@ -190,7 +191,17 @@ export function WallpaperBrowser() {
 
                 <div className="flex flex-wrap gap-1">
                   {wallpaper.tags.slice(0, 3).map((tag) => (
-                    <Tag key={`${wallpaper.path}-${tag}`}>{tag}</Tag>
+                    <TagButton
+                      key={`${wallpaper.path}-${tag}`}
+                      active={selectedTags.includes(tag)}
+                      onClick={(event: MouseEvent) => {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        onToggleTag(tag)
+                      }}
+                    >
+                      {tag}
+                    </TagButton>
                   ))}
                 </div>
 
