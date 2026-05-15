@@ -35,8 +35,7 @@ Filenames encode metadata: `name_tag1_tag2.ext`. The name segment uses hyphens f
 ### Key files
 
 - `components/wallpaper-browser.tsx` — client component (`'use client'`); the main gallery with search, tag filtering, detail modal, and Nix snippet copy. Uses `SearchInput`, `Tag`, `TagButton` from `pivoshenko.ui`.
-- `components/{footer,nav,theme-toggle}.tsx` — local copies. Canonical implementations live in `pivoshenko.ui` (`Footer`, `Nav`, `ThemeToggle`); a follow-up migration can delete these and use `<PageShell>` like `pivoshenko.startpage` does.
-- `app/layout.tsx` — root layout with ThemeProvider, JetBrains Mono font, Vercel Analytics
+- `app/layout.tsx` — root layout: ThemeProvider, JetBrains Mono font, Vercel Analytics, and `<PageShell brand="pivoshenko.wallpapers">` from `pivoshenko.ui` (composes shared `Nav` + `Footer` + `ThemeToggle` + `ScrollToTop`). No local nav/footer/theme-toggle components.
 - `app/globals.css` — design token definitions (local; see note above)
 
 ### Shared package consumption
