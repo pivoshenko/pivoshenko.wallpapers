@@ -1,22 +1,28 @@
-format:
-    pnpm format
+default:
+    @just --list
 
-check:
-    pnpm check
-
-lint:
-    pnpm check
-    pnpm build
+install:
+    pnpm install
 
 dev:
     pnpm dev
 
+format:
+    pnpm format
+
+lint:
+    pnpm lint
+
+check:
+    pnpm check
+    pnpm build
+
+build:
+    pnpm build
+
 start:
     pnpm build
     pnpm start
-
-install:
-    pnpm install
 
 update:
     pnpm update

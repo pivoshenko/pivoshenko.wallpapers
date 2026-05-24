@@ -13,7 +13,7 @@ A Next.js 16 wallpaper gallery site for browsing, filtering, and downloading wal
 - **Lint:** `pnpm lint` (Biome)
 - **Format:** `pnpm format` (Biome, writes changes)
 - **Lint + format:** `pnpm check` (Biome, writes changes)
-- **Full lint check:** `just lint` (runs `pnpm check` then `pnpm build`)
+- **Full check (gate):** `just check` (runs `pnpm check` then `pnpm build`); `just lint` is Biome lint only
 - **Regenerate wallpaper manifest:** `pnpm generate:wallpapers`
 
 Package manager is **pnpm** (10.x). No test suite exists.
