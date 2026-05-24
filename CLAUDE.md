@@ -30,13 +30,13 @@ Filenames encode metadata: `name_tag1_tag2.ext`. The name segment uses hyphens f
 
 ### Component design tokens
 
-`app/globals.css` defines a local copy of the Tailwind `@layer components` design tokens (`type-*`, `fg-*`, `hover-*`, `bg-tag*`, `border-*`). The canonical source is `pivoshenko.ui/ui/globals.css` — this site has not yet migrated to import the shared file. Use the token classes instead of raw Tailwind utilities for consistency.
+`app/globals.css` is a single `@import "pivoshenko.ui/ui/globals.css"` — all design tokens (`type-*`, `fg-*`, `hover-*`, `bg-tag*`, `border-*`) come from the shared package. Use the token classes instead of raw Tailwind utilities for consistency.
 
 ### Key files
 
-- `components/wallpaper-browser.tsx` — client component (`'use client'`); the main gallery with search, tag filtering, detail modal, and Nix snippet copy. Uses `SearchInput`, `Tag`, `TagButton` from `pivoshenko.ui`.
+- `components/wallpaper-browser.tsx` — client component (`'use client'`); the main gallery with search, tag filtering, detail modal, and Nix snippet copy. Uses `Tag`, `TagButton` from `pivoshenko.ui`.
 - `app/layout.tsx` — root layout: ThemeProvider, JetBrains Mono font, Vercel Analytics, and `<PageShell brand="pivoshenko.wallpapers">` from `pivoshenko.ui` (composes shared `Nav` + `Footer` + `ThemeToggle` + `ScrollToTop`). No local nav/footer/theme-toggle components.
-- `app/globals.css` — design token definitions (local; see note above)
+- `app/globals.css` — single `@import "pivoshenko.ui/ui/globals.css"` (see note above)
 
 ### Shared package consumption
 
