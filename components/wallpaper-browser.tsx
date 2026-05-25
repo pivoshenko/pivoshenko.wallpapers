@@ -164,7 +164,15 @@ export function WallpaperBrowser() {
               key={wallpaper.path}
               className="group overflow-hidden rounded border border-ui bg-white dark:bg-stone-950"
             >
-              <div className="relative aspect-[16/9] overflow-hidden border-b border-faint">
+              <button
+                type="button"
+                aria-label={`Open ${wallpaper.name} details`}
+                className="relative block aspect-[16/9] w-full overflow-hidden border-b border-faint"
+                onClick={() => {
+                  setActive(wallpaper)
+                  setCopyState('idle')
+                }}
+              >
                 <Image
                   src={`/wallpapers/${wallpaper.path}`}
                   alt={`${wallpaper.name} wallpaper`}
@@ -172,7 +180,7 @@ export function WallpaperBrowser() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-              </div>
+              </button>
 
               <div className="space-y-3 p-4">
                 <div className="flex items-start justify-between gap-3">
