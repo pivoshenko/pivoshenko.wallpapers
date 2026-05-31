@@ -50,19 +50,17 @@ export default async function OpengraphImage() {
             maxWidth: 980,
           }}
         >
-          A personal wallpaper collection — browse, filter, and download
+          Curated collection of wallpapers
         </div>
       </div>
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
           fontSize: 24,
           color: '#8a8a85',
         }}
       >
         <span>wallpapers.pivoshenko.dev</span>
-        <span>browse · filter · download</span>
       </div>
     </div>,
     {

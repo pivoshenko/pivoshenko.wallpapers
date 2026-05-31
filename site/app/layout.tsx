@@ -16,21 +16,19 @@ export const metadata: Metadata = {
     template: '%s — Wallpapers',
     default: 'Wallpapers — pivoshenko.dev',
   },
-  description: 'Personal wallpaper collection by Volodymyr Pivoshenko.',
+  description: 'Curated collection of wallpapers',
   openGraph: {
     type: 'website',
     url: 'https://wallpapers.pivoshenko.dev',
     siteName: 'pivoshenko.wallpapers',
     title: 'Wallpapers',
-    description:
-      'A personal wallpaper collection — browse, filter, and download',
+    description: 'Curated collection of wallpapers',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Wallpapers',
-    description:
-      'A personal wallpaper collection — browse, filter, and download',
+    description: 'Curated collection of wallpapers',
   },
 }
 
