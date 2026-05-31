@@ -2,27 +2,30 @@ default:
     @just --list
 
 install:
-    pnpm install
+    pnpm -C site install
 
 dev:
-    pnpm dev
+    pnpm -C site dev
 
 format:
-    pnpm format
+    pnpm -C site format
 
 lint:
-    pnpm lint
+    pnpm -C site lint
+
+audit:
+    pnpm -C site audit
 
 check:
-    pnpm check
-    pnpm build
+    pnpm -C site check
+    pnpm -C site build
 
 build:
-    pnpm build
+    pnpm -C site build
 
 start:
-    pnpm build
-    pnpm start
+    pnpm -C site build
+    pnpm -C site start
 
 update:
-    pnpm update
+    pnpm -C site update
