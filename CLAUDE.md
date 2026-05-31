@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A Next.js 16 wallpaper gallery site for browsing, filtering, and downloading wallpapers from Volodymyr Pivoshenko's personal collection. Deployed on Vercel. Uses JetBrains Mono font (via `next/font/google`), Tailwind CSS with a stone-based color palette, and dark/light theme support via `next-themes`.
+A Next.js 16 wallpaper gallery site for browsing, filtering, and downloading wallpapers from Volodymyr Pivoshenko's personal collection. Deployed on Vercel. Uses JetBrains Mono font (loaded inside the shared `SiteLayout`) and Tailwind CSS via the role-based `pivoshenko.ui/tailwind-preset/site` preset (single dark theme, `popil` flavor).
 
 ## Layout
 
@@ -46,7 +46,7 @@ Filenames encode metadata: `name_tag1_tag2.ext`. The name segment uses hyphens f
 ### Key files
 
 - `site/components/wallpaper-browser.tsx` — client component (`'use client'`); the main gallery with search, tag filtering, detail modal, and Nix snippet copy. Uses `Tag`, `TagButton` from `pivoshenko.ui`.
-- `site/app/layout.tsx` — root layout: ThemeProvider, JetBrains Mono font, Vercel Analytics, and `<PageShell brand="pivoshenko.wallpapers">` from `pivoshenko.ui` (composes shared `Nav` + `Footer` + `ThemeToggle` + `ScrollToTop`). No local nav/footer/theme-toggle components.
+- `site/app/layout.tsx` — thin wrapper around `<SiteLayout brand="pivoshenko.wallpapers">` from `pivoshenko.ui/next/site-layout`. Metadata via `siteMetadata(...)`, viewport via `siteViewport`. JetBrains Mono, `<html>`/`<body>` scaffolding, Vercel Analytics, and the shared `Nav`/`Footer`/`ScrollToTop` chrome are all owned by the shared layout. No local nav/footer/theme-toggle components.
 - `site/app/globals.css` — single `@import "pivoshenko.ui/ui/globals.css"` (see note above)
 
 ### Shared package consumption
@@ -55,8 +55,10 @@ This site pins `pivoshenko.ui` via git tag in `site/package.json`. See parent `C
 
 - `site/biome.json` extends `./node_modules/pivoshenko.ui/config/biome.json`
 - `site/tsconfig.json` extends `pivoshenko.ui/tsconfig.base.json`
-- `site/tailwind.config.ts` uses `pivoshenko.ui/tailwind-preset` + content glob pointing at the package source
-- `site/next.config.ts` needs `transpilePackages: ['pivoshenko.ui']`
+- `site/tailwind.config.ts` uses `pivoshenko.ui/tailwind-preset/site` + the `withUiContent()` helper
+- `site/next.config.ts` spreads `baseNextConfig` from `pivoshenko.ui/next/config` and keeps `images.unoptimized: true` (the wallpaper manifest is static; no per-image transformation)
+- `site/postcss.config.mjs` re-exports `pivoshenko.ui/postcss.config.mjs`
+- `site/app/icon.tsx` + `site/app/opengraph-image.tsx` re-export the shared handlers from `pivoshenko.ui/next/icon` and `pivoshenko.ui/next/opengraph-image` (`createOgImage({brand,title,subtitle,domain})`)
 
 ### Required env vars
 
