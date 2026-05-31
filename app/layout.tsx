@@ -21,14 +21,16 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://wallpapers.pivoshenko.dev',
     siteName: 'pivoshenko.wallpapers',
-    title: 'Wallpapers — pivoshenko.dev',
-    description: 'Personal wallpaper collection by Volodymyr Pivoshenko.',
+    title: 'Wallpapers',
+    description:
+      'A personal wallpaper collection — browse, filter, and download',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Wallpapers — pivoshenko.dev',
-    description: 'Personal wallpaper collection by Volodymyr Pivoshenko.',
+    title: 'Wallpapers',
+    description:
+      'A personal wallpaper collection — browse, filter, and download',
   },
 }
 

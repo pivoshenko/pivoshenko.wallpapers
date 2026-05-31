@@ -39,7 +39,7 @@ export default async function OpengraphImage() {
             color: '#c7b07a',
           }}
         >
-          wallpapers
+          Wallpapers
         </div>
         <div
           style={{
@@ -50,7 +50,7 @@ export default async function OpengraphImage() {
             maxWidth: 980,
           }}
         >
-          a personal wallpaper collection — browse, filter, and download.
+          A personal wallpaper collection — browse, filter, and download
         </div>
       </div>
       <div
