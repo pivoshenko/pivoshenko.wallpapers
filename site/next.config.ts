@@ -1,11 +1,11 @@
 import type { NextConfig } from 'next'
+import { baseNextConfig } from 'pivoshenko.ui/next/config'
 
-const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  transpilePackages: ['pivoshenko.ui'],
+const config: NextConfig = {
+  ...baseNextConfig,
   images: {
     unoptimized: true,
   },
 }
 
-export default nextConfig
+export default config

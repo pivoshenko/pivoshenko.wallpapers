@@ -1,9 +1,1 @@
-const config = {
-  plugins: {
-    'postcss-import': {},
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
-
-export default config
+export { default } from 'pivoshenko.ui/postcss.config.mjs'

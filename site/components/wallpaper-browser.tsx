@@ -42,12 +42,12 @@ function LoadingGrid() {
       {Array.from({ length: 12 }, (_, item) => item + 1).map((item) => (
         <div
           key={`loading-${item}`}
-          className="overflow-hidden rounded border border-ui bg-white dark:bg-stone-950"
+          className="overflow-hidden rounded border border-ui bg-bg-surface"
         >
-          <div className="aspect-[16/9] animate-pulse bg-stone-200 dark:bg-stone-800" />
+          <div className="aspect-[16/9] animate-pulse bg-bg-raised" />
           <div className="space-y-2 p-4">
-            <div className="h-4 w-2/3 animate-pulse rounded bg-stone-200 dark:bg-stone-800" />
-            <div className="h-3 w-1/3 animate-pulse rounded bg-stone-200 dark:bg-stone-800" />
+            <div className="h-4 w-2/3 animate-pulse rounded bg-bg-raised" />
+            <div className="h-3 w-1/3 animate-pulse rounded bg-bg-raised" />
           </div>
         </div>
       ))}
@@ -162,7 +162,7 @@ export function WallpaperBrowser() {
           {filtered.map((wallpaper) => (
             <article
               key={wallpaper.path}
-              className="group overflow-hidden rounded border border-ui bg-white dark:bg-stone-950"
+              className="group overflow-hidden rounded border border-ui bg-bg-surface"
             >
               <button
                 type="button"
@@ -235,7 +235,7 @@ export function WallpaperBrowser() {
           }}
         >
           <div
-            className="mx-auto mt-8 max-w-3xl rounded border border-ui bg-stone-50 p-6 dark:bg-stone-950"
+            className="mx-auto mt-8 max-w-3xl rounded border border-ui bg-bg-surface p-6"
             onMouseDown={(event) => event.stopPropagation()}
           >
             <div className="space-y-4">
@@ -283,7 +283,7 @@ export function WallpaperBrowser() {
                 ))}
               </div>
 
-              <div className="rounded border border-ui bg-white p-3 dark:bg-stone-950">
+              <div className="rounded border border-ui bg-bg-surface p-3">
                 <pre className="overflow-x-auto type-meta fg-body">{`image = pkgs.fetchurl {
   url = "${toRawDownloadUrl(active.path)}";
   sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -295,24 +295,24 @@ export function WallpaperBrowser() {
                   href={toRawDownloadUrl(active.path)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center rounded border border-ui px-3 py-2 type-ui fg-primary hover:bg-stone-100 dark:hover:bg-stone-900"
+                  className="inline-flex items-center rounded border border-ui px-3 py-2 type-ui fg-primary hover:bg-bg-raised"
                 >
                   Download original
                 </a>
                 <button
                   type="button"
                   onClick={() => onCopyNix(active)}
-                  className="rounded border border-ui px-3 py-2 type-ui fg-primary hover:bg-stone-100 dark:hover:bg-stone-900"
+                  className="rounded border border-ui px-3 py-2 type-ui fg-primary hover:bg-bg-raised"
                 >
                   Copy nix snippet
                 </button>
                 {copyState === 'copied' && (
-                  <span className="type-meta text-green-600 dark:text-green-400">
+                  <span className="type-meta text-accent-success">
                     copied
                   </span>
                 )}
                 {copyState === 'error' && (
-                  <span className="type-meta text-red-600 dark:text-red-400">
+                  <span className="type-meta text-accent-danger">
                     clipboard failed
                   </span>
                 )}
