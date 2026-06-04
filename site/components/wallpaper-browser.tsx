@@ -178,7 +178,7 @@ export function WallpaperBrowser() {
                   alt={`${wallpaper.name} wallpaper`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover transition-transform group-hover:scale-105"
                 />
               </button>
 
@@ -227,7 +227,7 @@ export function WallpaperBrowser() {
 
       {active && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 bg-bg-overlay/50 p-4"
           onMouseDown={(event) => {
             if (event.currentTarget === event.target) {
               setActive(null)
@@ -307,9 +307,7 @@ export function WallpaperBrowser() {
                   Copy nix snippet
                 </button>
                 {copyState === 'copied' && (
-                  <span className="type-meta text-accent-success">
-                    copied
-                  </span>
+                  <span className="type-meta text-accent-success">copied</span>
                 )}
                 {copyState === 'error' && (
                   <span className="type-meta text-accent-danger">
