@@ -1,0 +1,38 @@
+{
+  "name": "pivoshenko.wallpapers",
+  "version": "2.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "pnpm generate:wallpapers && next dev --turbopack",
+    "build": "pnpm generate:wallpapers && next build",
+    "start": "next start",
+    "generate:wallpapers": "node generateFileList.js",
+    "lint": "biome lint .",
+    "format": "biome format . --write",
+    "check": "biome check . --write"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
+    "next": "^16.3.0",
+    "pivoshenko.ui": "github:pivoshenko/pivoshenko.ui#v0.9.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.20.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "autoprefixer": "^10.5.4",
+    "image-size": "^2.0.2",
+    "postcss": "^8.5.26",
+    "postcss-import": "^16.1.1",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3"
+  }
+}
