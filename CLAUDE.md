@@ -14,13 +14,12 @@ Run everything through the root `justfile`; each recipe shells out to `pnpm -C s
 
 ```bash
 just install   # pnpm install
-just dev       # regenerate manifest, then next dev --turbopack
+just run-dev-server       # regenerate manifest, then next dev --turbopack
 just build     # regenerate manifest, then next build
-just start     # build, then next start
+just run-prod-server     # build, then next start
 just lint      # biome lint .
-just format    # biome format . --write
-just check     # biome check . --write, then next build
-just audit     # pnpm audit
+just format    # biome check . --write (format + lint autofix + import sort)
+just check     # lint + test + build (read-only)
 just test      # no-op while .no-tests exists (see below)
 just update    # pnpm update
 ```
@@ -29,7 +28,7 @@ pnpm 10.30.3, Node >= 24 (`engine-strict=true` in `site/.npmrc`, so a mismatched
 
 Regenerate the wallpaper manifest alone with `pnpm -C site generate:wallpapers`.
 
-CI (`.github/workflows/ci.yaml`, push to `main` + all PRs, `ubuntu-24.04-arm`) runs `just install` -> `just lint` -> `just audit` -> `just test` -> `just build`. All of these must pass.
+CI (`.github/workflows/ci.yaml`, push to `main` + all PRs, `ubuntu-24.04-arm`) runs `just install` -> `just lint` -> `just test` -> `just build`. All of these must pass.
 
 **No test suite.** `just test` is gated on the empty `.no-tests` sentinel at the repo root: while the file exists the recipe prints a skip and exits 0; delete it and the recipe fails, breaking CI until a real test command replaces it. Deleting the sentinel is the deliberate signal that tests are now expected.
 
@@ -78,4 +77,4 @@ None. Vercel Analytics and Speed Insights are wired through the Vercel integrati
 
 - Biome formatting (from the shared config): 2-space indent, 80-column width, single quotes in JS/TS, double quotes in JSX, trailing commas, **no semicolons**, imports auto-organized, `noUnusedVariables` is an error. CSS linting is off.
 - Conventional commits (`feat:`, `fix:`, `docs:`, `build:`, `ci:`, `chore:`).
-- `site/pnpm-workspace.yaml` carries security version overrides and `auditConfig.ignoreCves`; adding a suppression there is how `just audit` is kept green for unpatched advisories.
+- `site/pnpm-workspace.yaml` carries security version overrides and `auditConfig.ignoreCves`; these apply to a manual `pnpm audit` run, which is no longer wired into `just` or CI.
