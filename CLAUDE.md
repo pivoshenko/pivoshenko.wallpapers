@@ -13,11 +13,13 @@ and all application code lives in `site/`.
 
 ## Expensive to get wrong
 
-- **Download URLs are built from three hardcoded constants.** `toRawDownloadUrl` in
+- **Download URLs are built from hardcoded values.** `toRawDownloadUrl` in
   `site/components/wallpaper-browser.tsx` assembles a `raw.githubusercontent.com` URL from the
-  `owner`, `repository`, and `repositoryPath` constants at the top of that file. Renaming the
+  `owner`, `repository`, and `repositoryPath` constants at the top of that file, plus the branch
+  `main` inlined in the template literal - there is no branch constant to grep for. Renaming the
   repository, the default branch, or the wallpapers directory silently breaks every "Download
-  original" link and the copyable Nix `pkgs.fetchurl` snippet unless those constants change too
+  original" link and the copyable Nix `pkgs.fetchurl` snippet, with no error anywhere: the links
+  just 404. Verify a generated URL by hand after any such rename
 - **`site/public/files.json` is a generated file that happens to be tracked.** Editing it by hand
   is always wrong - the next `dev` or `build` overwrites the change
 - **The images are not ours.** The MIT license covers the source code only; `README.md` holds the
