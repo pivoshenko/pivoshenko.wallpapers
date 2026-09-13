@@ -10,8 +10,8 @@ export const metadata = {
   ...siteMetadata({
     url: 'https://wallpapers.pivoshenko.dev',
     brand: 'pivoshenko.wallpapers',
-    title: 'Wallpapers — pivoshenko.dev',
-    titleTemplate: '%s — Wallpapers',
+    title: 'Wallpapers - pivoshenko.dev',
+    titleTemplate: '%s - Wallpapers',
     description: 'Curated collection of wallpapers',
     ogTitle: 'Wallpapers',
   }),

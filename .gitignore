@@ -1,20 +1,20 @@
-# OS
+# == OS ==
 .DS_Store
 Thumbs.db
 
-# Editors
+# == Editors ==
 .zed/
 .idea/
 .vscode/
 
-# Env
+# == Env ==
 .env
 .env.local
 .env.*.local
 
-# Logs
+# == Logs ==
 *.log
 
-# Misc
+# == Misc ==
 .cache/
 .tmp/
