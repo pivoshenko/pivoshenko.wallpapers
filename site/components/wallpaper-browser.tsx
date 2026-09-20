@@ -277,7 +277,12 @@ export function WallpaperBrowser() {
               ['Aspect', `${(active.width / active.height).toFixed(2)}:1`],
             ].map(([label, value]) => (
               <div key={label}>
-                <dt className="type-meta fg-muted">{label}</dt>
+                <dt className="type-meta fg-muted">
+                  <span aria-hidden="true" className="text-accent">
+                    {'//'}
+                  </span>{' '}
+                  {label}
+                </dt>
                 <dd className="type-ui fg-body m-0">{value}</dd>
               </div>
             ))}
