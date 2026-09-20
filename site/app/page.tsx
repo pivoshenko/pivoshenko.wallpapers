@@ -14,13 +14,7 @@ export default function Home() {
           </>
         }
         lead="Curated collection of wallpapers."
-      >
-        <p className="type-meta fg-muted mt-3 max-w-2xl">
-          Wallpapers are collected from various artists and remain the property
-          of their creators. See the repository for attribution and takedown
-          requests.
-        </p>
-      </HeroBand>
+      />
 
       <PageBody>
         <WallpaperBrowser />
