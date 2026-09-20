@@ -25,7 +25,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <SiteLayout brand="pivoshenko.wallpapers" afterShell={<SpeedInsights />}>
+    <SiteLayout
+      brand="pivoshenko.wallpapers"
+      field="chunks"
+      afterShell={<SpeedInsights />}
+    >
       {children}
     </SiteLayout>
   )
