@@ -207,7 +207,7 @@ export function WallpaperBrowser() {
                     onClick={() => onOpen(wallpaper)}
                     className="focus-ring ml-auto inline-flex items-center gap-1 whitespace-nowrap transition-colors duration-fast hover:text-accent group-hover:text-accent"
                   >
-                    details
+                    Details
                     <ArrowRight
                       size={14}
                       strokeWidth={2}
