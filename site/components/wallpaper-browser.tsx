@@ -283,18 +283,22 @@ export function WallpaperBrowser() {
             ))}
           </dl>
 
-          <Tags>
-            {active.tags.map((tag) => (
-              <Tag key={`${active.path}-tag-${tag}`}>{tag}</Tag>
-            ))}
-          </Tags>
+          {/* the tags and the action share the footer row: alone under them
+              the button reads as stranded rather than as the dialog's close
+              move */}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Tags>
+              {active.tags.map((tag) => (
+                <Tag key={`${active.path}-tag-${tag}`}>{tag}</Tag>
+              ))}
+            </Tags>
 
-          <div>
             <ArrowLink
               href={toRawDownloadUrl(active.path)}
               target="_blank"
               rel="noopener noreferrer"
               variant="outline"
+              external
             >
               Download original
             </ArrowLink>
