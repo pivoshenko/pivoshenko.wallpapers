@@ -13,7 +13,7 @@ export default function Home() {
             <span className="text-accent">wallpapers</span>
           </>
         }
-        lead="Curated collection of wallpapers."
+        lead="Curated collection of wallpapers focused on minimalism and aesthetic consistency."
       />
 
       <PageBody>
