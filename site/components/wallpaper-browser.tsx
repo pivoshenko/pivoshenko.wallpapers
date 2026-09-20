@@ -157,7 +157,7 @@ export function WallpaperBrowser() {
               onClick={onClearFilters}
               icon={<FilterX size={14} strokeWidth={2} aria-hidden="true" />}
             >
-              clear filters
+              Reset
             </BarButton>
           )}
         </div>
@@ -175,7 +175,7 @@ export function WallpaperBrowser() {
               onClick={onClearFilters}
               icon={<FilterX size={14} strokeWidth={2} aria-hidden="true" />}
             >
-              clear filters
+              Reset
             </BarButton>
           }
         />
