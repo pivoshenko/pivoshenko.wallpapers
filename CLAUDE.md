@@ -57,8 +57,8 @@ all filenames, so renaming a file changes both its display name and its facets.
 
 `pivoshenko.ui` is a shared design system pinned as a GitHub dependency at a tag in
 `site/package.json`. Nearly every config file in `site/` is a one-line re-export of it, and the
-components (`Tag`, `TagButton`, `Card`, `Nav`, `Footer`, `Toast`, and more) come from the package
-root - import one from there before writing a local equivalent.
+components (`MediaTile`, `Dialog`, `TagFilter`, `SearchBar`, `HeroBand`, `Toast`, and more) come
+from the package root - import one from there before writing a local equivalent.
 
 - Lint rules, formatting, TypeScript strictness, the Tailwind theme, and the site chrome are
   upstream concerns - fix them in `pivoshenko.ui` and bump the pinned tag, never by diverging
@@ -66,14 +66,26 @@ root - import one from there before writing a local equivalent.
 - `just update` will not move that pin, because it is a git ref rather than a version range
 - `withUiContent` wraps the Tailwind content globs so Tailwind also scans the UI package's own
   sources for class names
-- For the semantic utility classes and the surface color scale, see `pivoshenko.ui`'s own
-  `CLAUDE.md` - use them rather than raw Tailwind color and font utilities
+- For the semantic utility classes and the surface color scale, read
+  `site/node_modules/pivoshenko.ui/ui/globals.css` - use them rather than raw Tailwind color and
+  font utilities. The package's own `CLAUDE.md` documents the full vocabulary but is **not**
+  shipped to consumers, so it is only readable in a `pivoshenko.ui` checkout
+- `lucide-react` is a direct dependency here even though `pivoshenko.ui` also depends on it:
+  pnpm's isolated layout links it only under the package's own `node_modules`, so without the
+  direct entry every `import ... from 'lucide-react'` fails the build
 
 ### Rendering notes
 
-`next.config.ts` sets `images.unoptimized: true`, so Vercel image optimization is off and
-`next/image` serves the files from `public/` directly. `WallpaperBrowser` is the only client
+`next.config.ts` sets `images.unoptimized: true`, so Vercel image optimization is off. Nothing
+here uses `next/image`: the grid renders through `MediaTile` and the detail modal through a
+plain `<img>`, both serving out of `public/` unchanged. `WallpaperBrowser` is the only client
 component (`'use client'`); the `app/` files around it are server components rendering the shell.
+
+The decorative field behind the hero and footer bands is `chunks`, a carved mosaic of slabs that
+holds its subdivision still and re-lights a few of them on a slow cycle. It is named twice on
+purpose - `field` on `SiteLayout` in `app/layout.tsx` paints the footer band, and `field` on
+`HeroBand` in `app/page.tsx` paints the hero, because `Hero` defaults to `contours` rather than
+inheriting the site's choice.
 
 ## Commands and conventions
 

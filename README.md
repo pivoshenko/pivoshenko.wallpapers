@@ -8,7 +8,7 @@
 
 ## Overview
 
-A curated collection of wallpapers with filtering, metadata, and direct downloads.
+A curated collection of wallpapers with search, tag filtering, metadata, and direct downloads.
 
 ## Attribution
 
