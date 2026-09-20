@@ -189,7 +189,7 @@ export function WallpaperBrowser() {
             return (
               <article
                 key={wallpaper.path}
-                className="group surface-card flex flex-col overflow-hidden transition-[border-color,transform,box-shadow] duration-base ease-out hover:-translate-y-0.5 hover:border-overlay1 hover:shadow-lifted motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                className="group surface-card flex flex-col overflow-hidden transition-[border-color,transform,box-shadow] duration-base ease-out hover:-translate-y-0.5 hover:border-accent hover:shadow-lifted focus-within:border-accent motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 {/* the eyebrow the Card component paints, carrying the
                     resolution and the action so the row under the image is
@@ -272,7 +272,7 @@ export function WallpaperBrowser() {
               ['Aspect', `${(active.width / active.height).toFixed(2)}:1`],
             ].map(([label, value]) => (
               <div key={label}>
-                <dt className="type-meta fg-title">
+                <dt className="type-ui fg-title">
                   <span aria-hidden="true" className="text-accent">
                     {'//'}
                   </span>{' '}
