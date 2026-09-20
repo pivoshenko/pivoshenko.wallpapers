@@ -51,6 +51,10 @@ function toIndexChip(name: string) {
   return /^\d+$/.test(name) ? name : undefined
 }
 
+// a card's chips filter on click but never mirror the selection: every card
+// carrying the tag would light at once, which reads as noise rather than state
+const noSelection = new Set<string>()
+
 function LoadingGrid() {
   return (
     <CardGrid>
@@ -225,7 +229,7 @@ export function WallpaperBrowser() {
 
                   <TagFilter
                     tags={wallpaper.tags.map((tag) => ({ tag }))}
-                    active={selectedTags}
+                    active={noSelection}
                     onToggle={onToggleTag}
                     label={`Filter by the tags on ${wallpaper.name}`}
                     className="mt-auto"
