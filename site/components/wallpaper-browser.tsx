@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight, FilterX, ImageOff } from 'lucide-react'
+import { FilterX, ImageOff } from 'lucide-react'
 import {
   ArrowLink,
   BarButton,
@@ -191,30 +191,10 @@ export function WallpaperBrowser() {
                 key={wallpaper.path}
                 className="group surface-card flex flex-col overflow-hidden transition-[border-color,transform,box-shadow] duration-base ease-out hover:-translate-y-0.5 hover:border-accent hover:shadow-lifted focus-within:border-accent motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
-                {/* the eyebrow the Card component paints, carrying the
-                    resolution and the action so the row under the image is
-                    free for the tags */}
-                <div className="fg-subtle flex items-center gap-2 border-b border-faint bg-bg-sunken px-4 py-2 text-[11px] leading-4">
-                  <span className="truncate">
-                    {`${wallpaper.width}\u00d7${wallpaper.height}`}
-                  </span>
-
-                  {/* the card carries no border of its own to mark it
-                      actionable, so this is the affordance: it tints with the
-                      accent whenever the cursor is anywhere over the card */}
-                  <button
-                    type="button"
-                    onClick={() => onOpen(wallpaper)}
-                    className="focus-ring ml-auto inline-flex items-center gap-1 whitespace-nowrap transition-colors duration-fast hover:text-accent group-hover:text-accent"
-                  >
-                    Details
-                    <ArrowRight
-                      size={14}
-                      strokeWidth={2}
-                      aria-hidden="true"
-                      className="transition-transform duration-base ease-out group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-                    />
-                  </button>
+                {/* the eyebrow the Card component paints, so the row under
+                    the image is free for the tags */}
+                <div className="fg-subtle truncate border-b border-faint bg-bg-sunken px-4 py-2 text-[11px] leading-4">
+                  {`${wallpaper.width}\u00d7${wallpaper.height}`}
                 </div>
 
                 {/* the card is a plain container rather than a link: its tags
