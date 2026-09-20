@@ -197,8 +197,11 @@ export function WallpaperBrowser() {
               >
                 {/* the eyebrow the Card component paints, so the row under
                     the image is free for the tags */}
-                <div className="fg-subtle truncate border-b border-faint bg-bg-sunken px-4 py-2 text-[11px] leading-4">
-                  {`${wallpaper.width}\u00d7${wallpaper.height}`}
+                <div className="fg-subtle flex items-center gap-2 border-b border-faint bg-bg-sunken px-4 py-2 text-[11px] leading-4">
+                  {index && <span className="fg-primary">{index}</span>}
+                  <span className="ml-auto truncate">
+                    {`${wallpaper.width}\u00d7${wallpaper.height}`}
+                  </span>
                 </div>
 
                 {/* the card is a plain container rather than a link: its tags
@@ -207,7 +210,7 @@ export function WallpaperBrowser() {
                   type="button"
                   onClick={() => onOpen(wallpaper)}
                   aria-label={`Open ${wallpaper.name}`}
-                  className="focus-ring relative block aspect-[16/10] w-full overflow-hidden bg-crust"
+                  className="focus-ring block aspect-[16/10] w-full overflow-hidden bg-crust"
                 >
                   <img
                     src={`/wallpapers/${wallpaper.path}`}
@@ -215,11 +218,6 @@ export function WallpaperBrowser() {
                     loading="lazy"
                     className="block h-full w-full object-cover transition-transform duration-slow ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
-                  {index && (
-                    <span className="fg-primary absolute left-3 top-3 rounded-sm bg-crust/[0.72] px-1.5 py-0.5 text-[11px] leading-4 backdrop-blur-[8px]">
-                      {index}
-                    </span>
-                  )}
                 </button>
 
                 <div className="flex flex-1 flex-col gap-2 px-4 pb-4 pt-3">
