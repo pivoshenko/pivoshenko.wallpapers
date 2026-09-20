@@ -76,10 +76,14 @@ from the package root - import one from there before writing a local equivalent.
 
 ### Rendering notes
 
-`next.config.ts` sets `images.unoptimized: true`, so Vercel image optimization is off. Nothing
-here uses `next/image`: the grid renders through `MediaTile` and the detail modal through a
-plain `<img>`, both serving out of `public/` unchanged. `WallpaperBrowser` is the only client
-component (`'use client'`); the `app/` files around it are server components rendering the shell.
+Both the grid tiles and the detail modal render through `next/image` with `fill`, so Vercel
+serves resized WebP rather than the originals - the collection includes 6016px files, and a tile
+is about 400px wide. `next.config.ts` sets a one-year `images.minimumCacheTTL` because the
+wallpapers are build-time static. Fidelity is not lost: "Download original" links straight to
+`raw.githubusercontent.com`, bypassing the site entirely. Keep the `sizes` attributes in step
+with the grid's `minmax(280px, 1fr)` columns and the dialog's `46rem` cap, or the browser picks
+the wrong candidate. `WallpaperBrowser` is the only client component (`'use client'`); the
+`app/` files around it are server components rendering the shell.
 
 The decorative field behind the hero and footer bands is `chunks`, a carved mosaic of slabs that
 holds its subdivision still and re-lights a few of them on a slow cycle. It is named twice on
