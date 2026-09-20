@@ -191,6 +191,30 @@ export function WallpaperBrowser() {
                 key={wallpaper.path}
                 className="group surface-card flex flex-col overflow-hidden transition-[border-color,transform,box-shadow] duration-base ease-out hover:-translate-y-0.5 hover:border-overlay1 hover:shadow-lifted motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
+                {/* the eyebrow the Card component paints, carrying the
+                    weight and the action so the row under the image is free
+                    for the tags */}
+                <div className="fg-subtle flex items-center gap-2 border-b border-faint bg-bg-sunken px-4 py-2 text-[11px] leading-4">
+                  <span className="truncate">{wallpaper.size} MB</span>
+
+                  {/* the card carries no border of its own to mark it
+                      actionable, so this is the affordance: it tints with the
+                      accent whenever the cursor is anywhere over the card */}
+                  <button
+                    type="button"
+                    onClick={() => onOpen(wallpaper)}
+                    className="focus-ring ml-auto inline-flex items-center gap-1 whitespace-nowrap transition-colors duration-fast hover:text-accent group-hover:text-accent"
+                  >
+                    details
+                    <ArrowRight
+                      size={14}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                      className="transition-transform duration-base ease-out group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                    />
+                  </button>
+                </div>
+
                 {/* the card is a plain container rather than a link: its tags
                     are buttons, and interactive content cannot nest */}
                 <button
@@ -231,23 +255,6 @@ export function WallpaperBrowser() {
                     <span className="type-meta fg-subtle ml-auto">
                       {`${wallpaper.width}\u00d7${wallpaper.height}`}
                     </span>
-
-                    {/* the card carries no border of its own to mark it
-                        actionable, so this is the affordance: it tints with the
-                        accent whenever the cursor is anywhere over the card */}
-                    <button
-                      type="button"
-                      onClick={() => onOpen(wallpaper)}
-                      className="type-meta fg-subtle focus-ring inline-flex items-center gap-1 whitespace-nowrap transition-colors duration-fast hover:text-accent group-hover:text-accent"
-                    >
-                      details
-                      <ArrowRight
-                        size={14}
-                        strokeWidth={2}
-                        aria-hidden="true"
-                        className="transition-transform duration-base ease-out group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-                      />
-                    </button>
                   </div>
                 </div>
               </article>
@@ -257,27 +264,21 @@ export function WallpaperBrowser() {
       )}
 
       {active && (
-        <Dialog
-          open
-          onClose={() => setActive(null)}
-          title={active.name}
-          eyebrow={active.filename}
-        >
+        <Dialog open onClose={() => setActive(null)} title={active.filename}>
           <img
             src={`/wallpapers/${active.path}`}
-            alt={`${active.name} wallpaper preview`}
+            alt={`${active.filename} preview`}
             className="block aspect-[16/10] w-full rounded border border-faint object-cover"
           />
 
-          <dl className="m-0 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <dl className="m-0 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {[
-              ['Filename', active.filename],
               ['Size', `${active.size} MB`],
               ['Resolution', `${active.width}\u00d7${active.height}`],
               ['Aspect', `${(active.width / active.height).toFixed(2)}:1`],
             ].map(([label, value]) => (
               <div key={label}>
-                <dt className="type-meta fg-muted">
+                <dt className="type-meta fg-title">
                   <span aria-hidden="true" className="text-accent">
                     {'//'}
                   </span>{' '}
