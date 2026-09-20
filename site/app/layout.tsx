@@ -28,6 +28,7 @@ export default function RootLayout({
     <SiteLayout
       brand="pivoshenko.wallpapers"
       accent="mauve"
+      subAccent="pink"
       field="chunks"
       fieldTintAlt="lavender"
       afterShell={<SpeedInsights />}

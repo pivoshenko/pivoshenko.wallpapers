@@ -1,6 +1,7 @@
 'use client'
 
 import { FilterX, ImageOff } from 'lucide-react'
+import Image from 'next/image'
 import {
   ArrowLink,
   BarButton,
@@ -210,13 +211,17 @@ export function WallpaperBrowser() {
                   type="button"
                   onClick={() => onOpen(wallpaper)}
                   aria-label={`Open ${wallpaper.name}`}
-                  className="focus-ring block aspect-[16/10] w-full overflow-hidden bg-crust"
+                  className="focus-ring relative block aspect-[16/10] w-full overflow-hidden bg-crust"
                 >
-                  <img
+                  <Image
                     src={`/wallpapers/${wallpaper.path}`}
                     alt=""
+                    fill
+                    // tiles are auto-fill minmax(280px, 1fr), so above the
+                    // phone breakpoint they sit between 280px and about 400px
+                    sizes="(max-width: 640px) 100vw, 400px"
                     loading="lazy"
-                    className="block h-full w-full object-cover transition-transform duration-slow ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                    className="object-cover transition-transform duration-slow ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
                 </button>
 
@@ -241,11 +246,16 @@ export function WallpaperBrowser() {
 
       {active && (
         <Dialog open onClose={() => setActive(null)} title={active.filename}>
-          <img
-            src={`/wallpapers/${active.path}`}
-            alt={`${active.filename} preview`}
-            className="block aspect-[16/10] w-full rounded border border-faint object-cover"
-          />
+          <div className="relative aspect-[16/10] w-full overflow-hidden rounded border border-faint">
+            <Image
+              src={`/wallpapers/${active.path}`}
+              alt={`${active.filename} preview`}
+              fill
+              // the dialog caps at w-[min(46rem,100vw-2rem)]
+              sizes="(max-width: 48rem) 100vw, 736px"
+              className="object-cover"
+            />
+          </div>
 
           <dl className="m-0 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {[
