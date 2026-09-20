@@ -29,6 +29,7 @@ export default function RootLayout({
       brand="pivoshenko.wallpapers"
       accent="mauve"
       field="chunks"
+      fieldTintAlt="lavender"
       afterShell={<SpeedInsights />}
     >
       {children}

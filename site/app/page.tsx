@@ -6,6 +6,7 @@ export default function Home() {
     <>
       <HeroBand
         field="chunks"
+        tintAlt="lavender"
         title={
           <>
             <span className="fg-title">pivoshenko</span>
