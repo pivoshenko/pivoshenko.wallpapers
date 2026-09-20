@@ -1,8 +1,27 @@
 'use client'
 
-import Image from 'next/image'
-import { Tag, TagButton } from 'pivoshenko.ui'
-import type { MouseEvent } from 'react'
+import {
+  ClipboardCheck,
+  ClipboardCopy,
+  FilterX,
+  ImageOff,
+  TriangleAlert,
+} from 'lucide-react'
+import {
+  ArrowLink,
+  BarButton,
+  CardGrid,
+  CodeBlock,
+  CopyPill,
+  Dialog,
+  EmptyState,
+  MediaTile,
+  SearchBar,
+  Tag,
+  TagFilter,
+  Tags,
+  Toast,
+} from 'pivoshenko.ui'
 import { useEffect, useMemo, useState } from 'react'
 
 type FileRecord = {
@@ -36,28 +55,36 @@ function toRawDownloadUrl(filePath: string) {
   return `https://raw.githubusercontent.com/${owner}/${repository}/main/${repositoryPath}/${filePath}`
 }
 
+function toNixSnippet(filePath: string) {
+  return `image = pkgs.fetchurl {
+  url = "${toRawDownloadUrl(filePath)}";
+  sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+};`
+}
+
+// the collection numbers its files, so a purely numeric name is the tile's
+// index chip rather than its heading
+function toIndexChip(name: string) {
+  return /^\d+$/.test(name) ? name : undefined
+}
+
 function LoadingGrid() {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {Array.from({ length: 12 }, (_, item) => item + 1).map((item) => (
+    <CardGrid>
+      {Array.from({ length: 12 }, (_, item) => item).map((item) => (
         <div
           key={`loading-${item}`}
-          className="overflow-hidden rounded border border-ui bg-bg-surface"
-        >
-          <div className="aspect-[16/9] animate-pulse bg-bg-raised" />
-          <div className="space-y-2 p-4">
-            <div className="h-4 w-2/3 animate-pulse rounded bg-bg-raised" />
-            <div className="h-3 w-1/3 animate-pulse rounded bg-bg-raised" />
-          </div>
-        </div>
+          className="surface-card aspect-[16/10] animate-pulse bg-bg-raised"
+        />
       ))}
-    </div>
+    </CardGrid>
   )
 }
 
 export function WallpaperBrowser() {
   const [wallpapers, setWallpapers] = useState<Wallpaper[]>([])
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [query, setQuery] = useState('')
+  const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set())
   const [active, setActive] = useState<Wallpaper | null>(null)
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>(
     'idle',
@@ -87,40 +114,52 @@ export function WallpaperBrowser() {
     load()
   }, [])
 
-  const tags = useMemo(
-    () =>
-      [...new Set(wallpapers.flatMap((wallpaper) => wallpaper.tags))].sort(
-        (a, b) => a.localeCompare(b),
-      ),
-    [wallpapers],
-  )
+  const tags = useMemo(() => {
+    const counts = new Map<string, number>()
+    for (const wallpaper of wallpapers) {
+      for (const tag of wallpaper.tags) {
+        counts.set(tag, (counts.get(tag) ?? 0) + 1)
+      }
+    }
+
+    return [...counts]
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((a, b) => a.tag.localeCompare(b.tag))
+  }, [wallpapers])
 
   const filtered = useMemo(() => {
-    if (selectedTags.length === 0) return wallpapers
-    return wallpapers.filter((wallpaper) =>
-      selectedTags.some((tag) => wallpaper.tags.includes(tag)),
+    const needle = query.trim().toLowerCase()
+    return wallpapers.filter(
+      (wallpaper) =>
+        (needle === '' || wallpaper.name.toLowerCase().includes(needle)) &&
+        (selectedTags.size === 0 ||
+          wallpaper.tags.some((tag) => selectedTags.has(tag))),
     )
-  }, [selectedTags, wallpapers])
+  }, [query, selectedTags, wallpapers])
 
-  const hasFilters = selectedTags.length > 0
+  const hasFilters = selectedTags.size > 0 || query !== ''
 
   const onToggleTag = (tag: string) => {
-    setSelectedTags((current) =>
-      current.includes(tag)
-        ? current.filter((value) => value !== tag)
-        : [...current, tag],
-    )
+    setSelectedTags((current) => {
+      const next = new Set(current)
+      if (!next.delete(tag)) next.add(tag)
+      return next
+    })
   }
 
   const onClearFilters = () => {
-    setSelectedTags([])
+    setSelectedTags(new Set())
+    setQuery('')
+  }
+
+  const onOpen = (wallpaper: Wallpaper) => {
+    setActive(wallpaper)
+    setCopyState('idle')
   }
 
   const onCopyNix = async (wallpaper: Wallpaper) => {
-    const snippet = `image = pkgs.fetchurl {\n  url = "${toRawDownloadUrl(wallpaper.path)}";\n  sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";\n};`
-
     try {
-      await navigator.clipboard.writeText(snippet)
+      await navigator.clipboard.writeText(toNixSnippet(wallpaper.path))
       setCopyState('copied')
     } catch {
       setCopyState('error')
@@ -132,192 +171,154 @@ export function WallpaperBrowser() {
   return (
     <div className="space-y-8">
       <section className="space-y-4 border-b border-ui pb-6">
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <TagButton
-              key={tag}
-              active={selectedTags.includes(tag)}
-              onClick={() => onToggleTag(tag)}
-            >
-              {tag}
-            </TagButton>
-          ))}
-        </div>
+        <SearchBar
+          value={query}
+          onValueChange={setQuery}
+          placeholder="Search wallpapers"
+        />
 
-        {hasFilters && (
-          <button
-            type="button"
-            onClick={onClearFilters}
-            className="type-meta fg-muted hover-secondary transition-colors"
-          >
-            Clear filters
-          </button>
-        )}
+        <div className="flex flex-wrap items-center gap-3">
+          <TagFilter
+            tags={tags}
+            active={selectedTags}
+            onToggle={onToggleTag}
+            className="flex-1"
+          />
+          {hasFilters && (
+            <BarButton
+              onClick={onClearFilters}
+              icon={<FilterX size={14} strokeWidth={2} aria-hidden="true" />}
+            >
+              clear filters
+            </BarButton>
+          )}
+        </div>
       </section>
 
-      {isLoading ? (
-        <LoadingGrid />
-      ) : (
-        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((wallpaper) => (
-            <article
-              key={wallpaper.path}
-              className="group overflow-hidden rounded border border-ui bg-bg-surface"
+      {isLoading && <LoadingGrid />}
+
+      {!isLoading && filtered.length === 0 && (
+        <EmptyState
+          icon={<ImageOff size={20} strokeWidth={2} aria-hidden="true" />}
+          title="No wallpapers match"
+          description="Nothing in the collection carries this combination of search term and tags."
+          action={
+            <BarButton
+              onClick={onClearFilters}
+              icon={<FilterX size={14} strokeWidth={2} aria-hidden="true" />}
             >
-              <button
-                type="button"
-                aria-label={`Open ${wallpaper.name} details`}
-                className="relative block aspect-[16/9] w-full overflow-hidden border-b border-faint"
-                onClick={() => {
-                  setActive(wallpaper)
-                  setCopyState('idle')
+              clear filters
+            </BarButton>
+          }
+        />
+      )}
+
+      {!isLoading && filtered.length > 0 && (
+        <CardGrid>
+          {filtered.map((wallpaper) => (
+            <div key={wallpaper.path} className="flex flex-col gap-2">
+              <MediaTile
+                href={`/wallpapers/${wallpaper.path}`}
+                onClick={(event) => {
+                  event.preventDefault()
+                  onOpen(wallpaper)
                 }}
+                src={`/wallpapers/${wallpaper.path}`}
+                alt={`${wallpaper.name} wallpaper`}
+                index={toIndexChip(wallpaper.name)}
+                meta={[
+                  `${wallpaper.width}\u00d7${wallpaper.height}`,
+                  `${wallpaper.size} MB`,
+                ]}
               >
-                <Image
-                  src={`/wallpapers/${wallpaper.path}`}
-                  alt={`${wallpaper.name} wallpaper`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                  className="object-cover transition-transform group-hover:scale-105"
-                />
-              </button>
+                {toIndexChip(wallpaper.name) ? null : (
+                  <span className="type-ui fg-title">{wallpaper.name}</span>
+                )}
+              </MediaTile>
 
-              <div className="space-y-3 p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <h2 className="type-ui fg-title">{wallpaper.name}</h2>
-                  <button
-                    type="button"
-                    className="type-meta fg-muted hover-secondary"
-                    onClick={() => {
-                      setActive(wallpaper)
-                      setCopyState('idle')
-                    }}
-                  >
-                    details
-                  </button>
-                </div>
-
-                <div className="flex flex-wrap gap-1">
-                  {wallpaper.tags.slice(0, 3).map((tag) => (
-                    <TagButton
-                      key={`${wallpaper.path}-${tag}`}
-                      active={selectedTags.includes(tag)}
-                      onClick={(event: MouseEvent) => {
-                        event.preventDefault()
-                        event.stopPropagation()
-                        onToggleTag(tag)
-                      }}
-                    >
-                      {tag}
-                    </TagButton>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between type-meta fg-muted">
-                  <span>
-                    {wallpaper.width}×{wallpaper.height}
-                  </span>
-                  <span>{wallpaper.size} MB</span>
-                </div>
-              </div>
-            </article>
+              <TagFilter
+                tags={wallpaper.tags.map((tag) => ({ tag }))}
+                active={selectedTags}
+                onToggle={onToggleTag}
+                label={`Filter by the tags on ${wallpaper.name}`}
+              />
+            </div>
           ))}
-        </section>
+        </CardGrid>
       )}
 
       {active && (
-        <div
-          className="fixed inset-0 z-50 bg-bg-overlay/50 p-4"
-          onMouseDown={(event) => {
-            if (event.currentTarget === event.target) {
-              setActive(null)
-            }
-          }}
+        <Dialog
+          open
+          onClose={() => setActive(null)}
+          title={active.name}
+          eyebrow={active.filename}
         >
-          <div
-            className="mx-auto mt-8 max-w-3xl rounded border border-ui bg-bg-surface p-6"
-            onMouseDown={(event) => event.stopPropagation()}
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between gap-3">
-                <h3 className="type-heading fg-primary">{active.name}</h3>
-                <button
-                  type="button"
-                  onClick={() => setActive(null)}
-                  className="type-meta fg-muted hover-secondary"
-                >
-                  close
-                </button>
-              </div>
+          <img
+            src={`/wallpapers/${active.path}`}
+            alt={`${active.name} wallpaper preview`}
+            className="block aspect-[16/10] w-full rounded border border-faint object-cover"
+          />
 
-              <div className="relative aspect-[16/9] overflow-hidden rounded border border-faint">
-                <Image
-                  src={`/wallpapers/${active.path}`}
-                  alt={`${active.name} wallpaper preview`}
-                  fill
-                  sizes="100vw"
-                  className="object-cover"
-                />
+          <dl className="m-0 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {[
+              ['Filename', active.filename],
+              ['Size', `${active.size} MB`],
+              ['Resolution', `${active.width}\u00d7${active.height}`],
+              ['Aspect', `${(active.width / active.height).toFixed(2)}:1`],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="type-meta fg-muted">{label}</dt>
+                <dd className="type-ui fg-body m-0">{value}</dd>
               </div>
+            ))}
+          </dl>
 
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 type-ui fg-body">
-                <p>
-                  <span className="fg-muted">Filename:</span> {active.filename}
-                </p>
-                <p>
-                  <span className="fg-muted">Size:</span> {active.size} MB
-                </p>
-                <p>
-                  <span className="fg-muted">Resolution:</span> {active.width}×
-                  {active.height}
-                </p>
-                <p>
-                  <span className="fg-muted">Aspect:</span>{' '}
-                  {(active.width / active.height).toFixed(2)}:1
-                </p>
-              </div>
+          <Tags>
+            {active.tags.map((tag) => (
+              <Tag key={`${active.path}-tag-${tag}`}>{tag}</Tag>
+            ))}
+          </Tags>
 
-              <div className="flex flex-wrap gap-1">
-                {active.tags.map((tag) => (
-                  <Tag key={`${active.path}-tag-${tag}`}>{tag}</Tag>
-                ))}
-              </div>
+          <CodeBlock
+            label="nix"
+            code={toNixSnippet(active.path)}
+            copyable={false}
+          />
 
-              <div className="rounded border border-ui bg-bg-surface p-3">
-                <pre className="overflow-x-auto type-meta fg-body">{`image = pkgs.fetchurl {
-  url = "${toRawDownloadUrl(active.path)}";
-  sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-};`}</pre>
-              </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <ArrowLink
+              href={toRawDownloadUrl(active.path)}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outline"
+            >
+              Download original
+            </ArrowLink>
 
-              <div className="flex flex-wrap gap-2">
-                <a
-                  href={toRawDownloadUrl(active.path)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded border border-ui px-3 py-2 type-ui fg-primary hover:bg-bg-raised"
-                >
-                  Download original
-                </a>
-                <button
-                  type="button"
-                  onClick={() => onCopyNix(active)}
-                  className="rounded border border-ui px-3 py-2 type-ui fg-primary hover:bg-bg-raised"
-                >
-                  Copy nix snippet
-                </button>
-                {copyState === 'copied' && (
-                  <span className="type-meta text-accent-success">copied</span>
-                )}
-                {copyState === 'error' && (
-                  <span className="type-meta text-accent-danger">
-                    clipboard failed
-                  </span>
-                )}
-              </div>
-            </div>
+            <CopyPill
+              copied={copyState === 'copied'}
+              onClick={() => onCopyNix(active)}
+            >
+              {copyState === 'copied' ? (
+                <ClipboardCheck size={14} strokeWidth={2} aria-hidden="true" />
+              ) : (
+                <ClipboardCopy size={14} strokeWidth={2} aria-hidden="true" />
+              )}
+              {copyState === 'copied' ? 'copied' : 'copy nix snippet'}
+            </CopyPill>
           </div>
-        </div>
+
+          {copyState === 'error' && (
+            <Toast
+              icon={
+                <TriangleAlert size={14} strokeWidth={2} aria-hidden="true" />
+              }
+            >
+              clipboard failed
+            </Toast>
+          )}
+        </Dialog>
       )}
     </div>
   )
