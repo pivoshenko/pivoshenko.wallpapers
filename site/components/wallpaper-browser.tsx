@@ -192,10 +192,12 @@ export function WallpaperBrowser() {
                 className="group surface-card flex flex-col overflow-hidden transition-[border-color,transform,box-shadow] duration-base ease-out hover:-translate-y-0.5 hover:border-overlay1 hover:shadow-lifted motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 {/* the eyebrow the Card component paints, carrying the
-                    weight and the action so the row under the image is free
-                    for the tags */}
+                    resolution and the action so the row under the image is
+                    free for the tags */}
                 <div className="fg-subtle flex items-center gap-2 border-b border-faint bg-bg-sunken px-4 py-2 text-[11px] leading-4">
-                  <span className="truncate">{wallpaper.size} MB</span>
+                  <span className="truncate">
+                    {`${wallpaper.width}\u00d7${wallpaper.height}`}
+                  </span>
 
                   {/* the card carries no border of its own to mark it
                       actionable, so this is the affordance: it tints with the
@@ -241,21 +243,13 @@ export function WallpaperBrowser() {
                     <span className="type-ui fg-title">{wallpaper.name}</span>
                   )}
 
-                  {/* a wallpaper carries one or two tags, so the resolution
-                      and the action share their row rather than taking one
-                      each */}
-                  <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <TagFilter
-                      tags={wallpaper.tags.map((tag) => ({ tag }))}
-                      active={selectedTags}
-                      onToggle={onToggleTag}
-                      label={`Filter by the tags on ${wallpaper.name}`}
-                    />
-
-                    <span className="type-meta fg-subtle ml-auto">
-                      {`${wallpaper.width}\u00d7${wallpaper.height}`}
-                    </span>
-                  </div>
+                  <TagFilter
+                    tags={wallpaper.tags.map((tag) => ({ tag }))}
+                    active={selectedTags}
+                    onToggle={onToggleTag}
+                    label={`Filter by the tags on ${wallpaper.name}`}
+                    className="mt-auto"
+                  />
                 </div>
               </article>
             )
