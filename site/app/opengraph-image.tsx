@@ -6,7 +6,7 @@ export const contentType = 'image/png'
 export const runtime = 'edge'
 
 export default createOgImage({
-  brand: 'pivoshenko.wallpapers',
+  brand: 'Volodymyr Pivoshenko',
   title: 'Wallpapers',
   subtitle: 'Curated collection of wallpapers',
   domain: 'wallpapers.pivoshenko.dev',
