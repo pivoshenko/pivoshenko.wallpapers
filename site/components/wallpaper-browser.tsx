@@ -1,26 +1,16 @@
 'use client'
 
-import {
-  ClipboardCheck,
-  ClipboardCopy,
-  FilterX,
-  ImageOff,
-  TriangleAlert,
-} from 'lucide-react'
+import { ArrowRight, FilterX, ImageOff } from 'lucide-react'
 import {
   ArrowLink,
   BarButton,
   CardGrid,
-  CodeBlock,
-  CopyPill,
   Dialog,
   EmptyState,
-  MediaTile,
   SearchBar,
   Tag,
   TagFilter,
   Tags,
-  Toast,
 } from 'pivoshenko.ui'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -55,13 +45,6 @@ function toRawDownloadUrl(filePath: string) {
   return `https://raw.githubusercontent.com/${owner}/${repository}/main/${repositoryPath}/${filePath}`
 }
 
-function toNixSnippet(filePath: string) {
-  return `image = pkgs.fetchurl {
-  url = "${toRawDownloadUrl(filePath)}";
-  sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-};`
-}
-
 // the collection numbers its files, so a purely numeric name is the tile's
 // index chip rather than its heading
 function toIndexChip(name: string) {
@@ -86,9 +69,6 @@ export function WallpaperBrowser() {
   const [query, setQuery] = useState('')
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set())
   const [active, setActive] = useState<Wallpaper | null>(null)
-  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>(
-    'idle',
-  )
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -154,18 +134,6 @@ export function WallpaperBrowser() {
 
   const onOpen = (wallpaper: Wallpaper) => {
     setActive(wallpaper)
-    setCopyState('idle')
-  }
-
-  const onCopyNix = async (wallpaper: Wallpaper) => {
-    try {
-      await navigator.clipboard.writeText(toNixSnippet(wallpaper.path))
-      setCopyState('copied')
-    } catch {
-      setCopyState('error')
-    }
-
-    setTimeout(() => setCopyState('idle'), 1800)
   }
 
   return (
@@ -215,35 +183,71 @@ export function WallpaperBrowser() {
 
       {!isLoading && filtered.length > 0 && (
         <CardGrid>
-          {filtered.map((wallpaper) => (
-            <div key={wallpaper.path} className="flex flex-col gap-2">
-              <MediaTile
-                href={`/wallpapers/${wallpaper.path}`}
-                onClick={(event) => {
-                  event.preventDefault()
-                  onOpen(wallpaper)
-                }}
-                src={`/wallpapers/${wallpaper.path}`}
-                alt={`${wallpaper.name} wallpaper`}
-                index={toIndexChip(wallpaper.name)}
-                meta={[
-                  `${wallpaper.width}\u00d7${wallpaper.height}`,
-                  `${wallpaper.size} MB`,
-                ]}
-              >
-                {toIndexChip(wallpaper.name) ? null : (
-                  <span className="type-ui fg-title">{wallpaper.name}</span>
-                )}
-              </MediaTile>
+          {filtered.map((wallpaper) => {
+            const index = toIndexChip(wallpaper.name)
 
-              <TagFilter
-                tags={wallpaper.tags.map((tag) => ({ tag }))}
-                active={selectedTags}
-                onToggle={onToggleTag}
-                label={`Filter by the tags on ${wallpaper.name}`}
-              />
-            </div>
-          ))}
+            return (
+              <article
+                key={wallpaper.path}
+                className="group surface-card flex flex-col overflow-hidden transition-[border-color,transform,box-shadow] duration-base ease-out hover:-translate-y-0.5 hover:border-overlay1 hover:shadow-lifted motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              >
+                {/* the card is a plain container rather than a link: its tags
+                    are buttons, and interactive content cannot nest */}
+                <button
+                  type="button"
+                  onClick={() => onOpen(wallpaper)}
+                  aria-label={`Open ${wallpaper.name}`}
+                  className="focus-ring relative block aspect-[16/10] w-full overflow-hidden bg-crust"
+                >
+                  <img
+                    src={`/wallpapers/${wallpaper.path}`}
+                    alt=""
+                    loading="lazy"
+                    className="block h-full w-full object-cover transition-transform duration-slow ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  />
+                  {index && (
+                    <span className="fg-primary absolute left-3 top-3 rounded-sm bg-crust/[0.72] px-1.5 py-0.5 text-[11px] leading-4 backdrop-blur-[8px]">
+                      {index}
+                    </span>
+                  )}
+                </button>
+
+                <div className="flex flex-1 flex-col gap-2 px-4 pb-4 pt-3">
+                  {!index && (
+                    <span className="type-ui fg-title">{wallpaper.name}</span>
+                  )}
+
+                  <TagFilter
+                    tags={wallpaper.tags.map((tag) => ({ tag }))}
+                    active={selectedTags}
+                    onToggle={onToggleTag}
+                    label={`Filter by the tags on ${wallpaper.name}`}
+                  />
+
+                  <div className="type-meta fg-subtle mt-auto flex items-center justify-between gap-3 pt-1">
+                    <span>{`${wallpaper.width}\u00d7${wallpaper.height}`}</span>
+
+                    {/* the card carries no border of its own to mark it
+                        actionable, so this is the affordance: it tints with the
+                        accent whenever the cursor is anywhere over the card */}
+                    <button
+                      type="button"
+                      onClick={() => onOpen(wallpaper)}
+                      className="focus-ring inline-flex items-center gap-1 whitespace-nowrap transition-colors duration-fast hover:text-accent group-hover:text-accent"
+                    >
+                      details
+                      <ArrowRight
+                        size={14}
+                        strokeWidth={2}
+                        aria-hidden="true"
+                        className="transition-transform duration-base ease-out group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </article>
+            )
+          })}
         </CardGrid>
       )}
 
@@ -280,13 +284,7 @@ export function WallpaperBrowser() {
             ))}
           </Tags>
 
-          <CodeBlock
-            label="nix"
-            code={toNixSnippet(active.path)}
-            copyable={false}
-          />
-
-          <div className="flex flex-wrap items-center gap-3">
+          <div>
             <ArrowLink
               href={toRawDownloadUrl(active.path)}
               target="_blank"
@@ -295,29 +293,7 @@ export function WallpaperBrowser() {
             >
               Download original
             </ArrowLink>
-
-            <CopyPill
-              copied={copyState === 'copied'}
-              onClick={() => onCopyNix(active)}
-            >
-              {copyState === 'copied' ? (
-                <ClipboardCheck size={14} strokeWidth={2} aria-hidden="true" />
-              ) : (
-                <ClipboardCopy size={14} strokeWidth={2} aria-hidden="true" />
-              )}
-              {copyState === 'copied' ? 'copied' : 'copy nix snippet'}
-            </CopyPill>
           </div>
-
-          {copyState === 'error' && (
-            <Toast
-              icon={
-                <TriangleAlert size={14} strokeWidth={2} aria-hidden="true" />
-              }
-            >
-              clipboard failed
-            </Toast>
-          )}
         </Dialog>
       )}
     </div>
