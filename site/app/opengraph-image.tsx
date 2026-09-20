@@ -10,5 +10,5 @@ export default createOgImage({
   title: 'Wallpapers',
   subtitle: 'Curated collection of wallpapers',
   domain: 'wallpapers.pivoshenko.dev',
-  accent: 'lavender',
+  accent: 'mauve',
 })
