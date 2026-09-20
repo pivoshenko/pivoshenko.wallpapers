@@ -217,15 +217,20 @@ export function WallpaperBrowser() {
                     <span className="type-ui fg-title">{wallpaper.name}</span>
                   )}
 
-                  <TagFilter
-                    tags={wallpaper.tags.map((tag) => ({ tag }))}
-                    active={selectedTags}
-                    onToggle={onToggleTag}
-                    label={`Filter by the tags on ${wallpaper.name}`}
-                  />
+                  {/* a wallpaper carries one or two tags, so the resolution
+                      and the action share their row rather than taking one
+                      each */}
+                  <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <TagFilter
+                      tags={wallpaper.tags.map((tag) => ({ tag }))}
+                      active={selectedTags}
+                      onToggle={onToggleTag}
+                      label={`Filter by the tags on ${wallpaper.name}`}
+                    />
 
-                  <div className="type-meta fg-subtle mt-auto flex items-center justify-between gap-3 pt-1">
-                    <span>{`${wallpaper.width}\u00d7${wallpaper.height}`}</span>
+                    <span className="type-meta fg-subtle ml-auto">
+                      {`${wallpaper.width}\u00d7${wallpaper.height}`}
+                    </span>
 
                     {/* the card carries no border of its own to mark it
                         actionable, so this is the affordance: it tints with the
@@ -233,7 +238,7 @@ export function WallpaperBrowser() {
                     <button
                       type="button"
                       onClick={() => onOpen(wallpaper)}
-                      className="focus-ring inline-flex items-center gap-1 whitespace-nowrap transition-colors duration-fast hover:text-accent group-hover:text-accent"
+                      className="type-meta fg-subtle focus-ring inline-flex items-center gap-1 whitespace-nowrap transition-colors duration-fast hover:text-accent group-hover:text-accent"
                     >
                       details
                       <ArrowRight
