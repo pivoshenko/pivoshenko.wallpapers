@@ -39,7 +39,7 @@ their filenames carry the metadata.
 3. `WallpaperBrowser` fetches `/files.json` in the browser at runtime and derives everything else
 
 To add or remove a wallpaper, change the files in `site/public/wallpapers/` and then run
-`just build` (or `pnpm -C site generate:wallpapers`) so the regenerated `files.json` is committed
+`just build` (or `cd site && pnpm generate:wallpapers`) so the regenerated `files.json` is committed
 alongside them.
 
 ### Filenames encode tags

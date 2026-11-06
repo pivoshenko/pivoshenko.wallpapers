@@ -67,7 +67,7 @@ This project uses [`just`](https://github.com/casey/just) as its task runner. Ru
 | --- | --- |
 | `just install` | Installs site dependencies with pnpm |
 | `just format` | Formats the site with Biome |
-| `just lint` | Lints the site with Biome |
+| `just lint` | Lints the site with Biome and typechecks it |
 | `just test` | Skips while the `.no-tests` sentinel is present; without it the recipe fails, prompting you to add tests |
 | `just build` | Regenerates the wallpaper file list, then builds the site for production |
 | `just check` | Runs `lint`, `test`, and `build` in sequence |
