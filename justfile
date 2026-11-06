@@ -25,6 +25,5 @@ build:
 run-dev-server:
     cd site && pnpm dev
 
-run-prod-server:
-    cd site && pnpm build
+run-prod-server: build
     cd site && pnpm start
