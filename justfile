@@ -2,13 +2,14 @@ default:
     @just --list
 
 install:
-    pnpm -C site install
+    cd site && pnpm install
 
 format:
-    pnpm -C site check
+    cd site && pnpm format
 
 lint:
-    pnpm -C site lint
+    cd site && pnpm lint
+    cd site && pnpm typecheck
 
 test:
     @[ -f .no-tests ] && echo "skipping (.no-tests sentinel)" || { echo "no test command, add tests or restore .no-tests" >&2; exit 1; }
@@ -16,14 +17,14 @@ test:
 check: lint test build
 
 update:
-    pnpm -C site update
+    cd site && pnpm update
 
 build:
-    pnpm -C site build
+    cd site && pnpm build
 
 run-dev-server:
-    pnpm -C site dev
+    cd site && pnpm dev
 
 run-prod-server:
-    pnpm -C site build
-    pnpm -C site start
+    cd site && pnpm build
+    cd site && pnpm start
