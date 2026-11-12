@@ -59,28 +59,16 @@ Concrete examples, API sketches, UI mockups, or references are helpful when rele
 
 ### Local Development
 
-This repo needs Node.js 24 with [pnpm](https://pnpm.io) for the site in `site/`, and `just`.
+This repository holds only the wallpaper images in `wallpapers/`, plus docs and a deploy workflow. There is no app to build or run. The gallery site lives in the private `pivoshenko.sites` monorepo under `sites/wallpapers`.
 
-This project uses [`just`](https://github.com/casey/just) as its task runner. Run `just --list` for the full set; these are the ones you need day to day:
-
-| Command | What it does |
-| --- | --- |
-| `just install` | Installs site dependencies with pnpm |
-| `just format` | Formats the site with Biome |
-| `just lint` | Lints the site with Biome and typechecks it |
-| `just test` | Skips while the `.no-tests` sentinel is present; without it the recipe fails, prompting you to add tests |
-| `just build` | Builds the site for production |
-| `just check` | Runs `lint`, `test`, and `build` in sequence |
-| `just update` | Upgrades site dependencies with pnpm |
-| `just run-dev-server` | Runs the site locally in dev mode |
-| `just run-prod-server` | Builds the site, then serves the production build |
+To add a wallpaper:
 
 1. Fork the repository and clone your fork locally
 2. Create a branch using the naming pattern described below
-3. Make your changes, then run `just check` before opening a pull request
+3. Add the image to `wallpapers/`, following the existing `<name>_<tag>.<ext>` naming (a numeric prefix plus a tag, e.g. `039_concept.jpg`; the site derives the display name and tags from the filename)
+4. Record where the image came from in the pull request, since the images are not covered by the MIT license
 
-> [!IMPORTANT]
-> Behavioral code changes should include or update tests.
+The repository uses [`just`](https://github.com/casey/just) as its task runner. Run `just --list` for the recipes; `just test` skips while the `.no-tests` sentinel is present.
 
 ### CI/CD
 
@@ -88,9 +76,7 @@ Workflows live in `.github/workflows`:
 
 | Workflow | Trigger | What it does |
 | --- | --- | --- |
-| CI | Push to `main`, pull requests, `workflow_dispatch` | Single `ci` job on `ubuntu-24.04-arm` using `just`, pnpm, and Node 24 with the pnpm cache keyed on `site/pnpm-lock.yaml`; installs the site's dependencies, then lints, tests, and builds it |
-
-CI must be green before a pull request is merged.
+| Deploy | Push to `main` touching `wallpapers/**`, `workflow_dispatch` | Single `deploy` job on `ubuntu-24.04-arm` that POSTs to the Vercel deploy hook in the `VERCEL_DEPLOY_HOOK` secret, rebuilding wallpapers.pivoshenko.dev |
 
 ### Branches
 

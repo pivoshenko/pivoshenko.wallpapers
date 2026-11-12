@@ -2,95 +2,45 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-`AGENTS.md` is a symlink to this file, so both agents read the same guidance.
-
 ## Overview
 
-`pivoshenko.wallpapers` is a Next.js site that browses a curated wallpaper collection with tag
-filtering, per-image metadata, and direct downloads, deployed to Vercel at
-`wallpapers.pivoshenko.dev`. The repository root is a thin shell - task runner, CI, project docs -
-and all application code lives in `site/`.
+`pivoshenko.wallpapers` is an images-only repository: the curated wallpaper collection in
+`wallpapers/`, plus project docs and one deploy workflow. The gallery site that renders it,
+`wallpapers.pivoshenko.dev`, lives in the private `pivoshenko.sites` monorepo under
+`sites/wallpapers`. At build time that site reads this repository (locally by copying the sibling
+checkout, on Vercel by shallow-cloning this public repo) and copies the images out of it.
 
-## Expensive to get wrong
+## Expensive to Get Wrong
 
-- **Download URLs are built from hardcoded values.** `toRawDownloadUrl` in
-  `site/components/wallpaper-browser.tsx` assembles a `raw.githubusercontent.com` URL from the
-  `owner`, `repository`, and `repositoryPath` constants at the top of that file, plus the branch
-  `main` inlined in the template literal - there is no branch constant to grep for. Renaming the
-  repository, the default branch, or the wallpapers directory silently breaks every "Download
-  original" link, with no error anywhere: the links just 404. Verify a generated URL by hand
-  after any such rename
+- **Download links are raw GitHub URLs.** The site links to `wallpapers/<file>` on the `main`
+  branch of this repository via `raw.githubusercontent.com`. Renaming the repository, the default
+  branch, the `wallpapers/` directory, or any file silently breaks those links and the site's
+  build-time read - fix `pivoshenko.sites` in the same change
 - **The images are not ours.** The MIT license covers the source code only; `README.md` holds the
   known sources and the takedown policy. Do not present them as original work, strip that section
   from `README.md`, or add an image without recording where it came from
 
-## Architecture
+## Wallpapers
 
-### Wallpapers are the data model
+Image files live in `wallpapers/`, and their filenames carry the metadata the site derives.
 
-There is no database, CMS, or API. The wallpaper collection is a directory of image files, and
-their filenames carry the metadata.
+The filename convention is `<name>_<tag>[_<tag>...].<ext>`: everything before the extension is
+split on `_`, the first segment becomes the display name (hyphens to spaces, title-cased), and every
+remaining segment becomes a tag verbatim. The existing collection uses a numeric prefix plus one
+tag, e.g. `039_concept.jpg`. The site's tag filter is the set of tags found across all filenames,
+so renaming a file changes both its display name and its facets.
 
-1. Image files live in `site/public/wallpapers/`
-2. `getWallpapers` in `site/lib/wallpapers.ts` reads that directory when `app/page.tsx` renders at
-   build time, taking each file's byte size from `statSync` and its pixel dimensions from the image
-   header (via `image-size`, a devDependency that Vercel installs for `next build`)
-3. `app/page.tsx` passes the result to `WallpaperBrowser` as a prop, and it derives everything else
+To add a wallpaper, put the file in `wallpapers/` following that convention and push to `main`. To
+remove one, delete it the same way.
 
-To add or remove a wallpaper, change the files in `site/public/wallpapers/`; the next dev reload or
-build picks them up, with no generated file to commit.
+## Deploy
 
-### Filenames encode tags
+`.github/workflows/deploy.yaml` runs on pushes to `main` that touch `wallpapers/**` (and on manual
+dispatch). It POSTs to the Vercel deploy hook stored in the repo secret `VERCEL_DEPLOY_HOOK`, which
+rebuilds `wallpapers.pivoshenko.dev`. The Vercel project is not connected to this repository.
 
-`parseFilename` in `site/lib/wallpapers.ts` splits a filename as
-`<name>_<tag>[_<tag>...].<ext>`: everything before the extension is split on `_`, the first
-segment becomes the display name (hyphens to spaces, title-cased), and every remaining segment
-becomes a tag verbatim - a hyphen inside a tag segment stays in the tag. The existing collection
-uses a numeric prefix plus one tag, e.g. `039_concept.jpg`.
+## Commands and Conventions
 
-The tag filter list is not configured anywhere - it is the sorted set of tags discovered across
-all filenames, so renaming a file changes both its display name and its facets.
-
-### `pivoshenko.ui` owns the configuration
-
-`pivoshenko.ui` is a shared design system pinned as a GitHub dependency at a tag in
-`site/package.json`. Nearly every config file in `site/` is a one-line re-export of it, and the
-components (`MediaTile`, `Dialog`, `TagFilter`, `SearchBar`, `HeroBand`, `Toast`, and more) come
-from the package root - import one from there before writing a local equivalent.
-
-- Lint rules, formatting, TypeScript strictness, the Tailwind theme, and the site chrome are
-  upstream concerns - fix them in `pivoshenko.ui` and bump the pinned tag, never by diverging
-  locally
-- `just update` will not move that pin, because it is a git ref rather than a version range
-- `withUiContent` wraps the Tailwind content globs so Tailwind also scans the UI package's own
-  sources for class names
-- For the semantic utility classes and the surface color scale, read
-  `site/node_modules/pivoshenko.ui/ui/globals.css` - use them rather than raw Tailwind color and
-  font utilities. The package's own `AGENTS.md` documents the full vocabulary but is **not**
-  shipped to consumers, so it is only readable in a `pivoshenko.ui` checkout
-- `lucide-react` is a direct dependency here even though `pivoshenko.ui` also depends on it:
-  pnpm's isolated layout links it only under the package's own `node_modules`, so without the
-  direct entry every `import ... from 'lucide-react'` fails the build
-
-### Rendering notes
-
-Both the grid tiles and the detail modal render through `next/image` with `fill`, so Vercel
-serves resized WebP rather than the originals - the collection includes 6016px files, and a tile
-is about 400px wide. `next.config.ts` sets a one-year `images.minimumCacheTTL` because the
-wallpapers are build-time static. Fidelity is not lost: "Download original" links straight to
-`raw.githubusercontent.com`, bypassing the site entirely. Keep the `sizes` attributes in step
-with the grid's `minmax(280px, 1fr)` columns and the dialog's `46rem` cap, or the browser picks
-the wrong candidate. `WallpaperBrowser` is the only client component (`'use client'`); the
-`app/` files around it are server components rendering the shell.
-
-The decorative field behind the nav and footer bands is `lake`, the topographic contours tilted
-back into perspective. It is set once - `field` on
-`SiteLayout` in `app/layout.tsx` - and the hero carries none.
-
-## Commands and conventions
-
-`just --list` from the repository root is the entry point for everything, and `just check` is the
-pre-PR gate. `.no-tests` at the root is a deliberate sentinel: `just test` skips while it exists
-and fails loudly once it is removed, so delete it and replace the `test` recipe in the same change.
-Biome owns formatting and linting - run `just format` rather than hand-formatting.
-`CONTRIBUTING.md` holds the rest: local development, CI, branch naming, commits, and PRs.
+`just --list` from the repository root lists the available recipes. `.no-tests` at the root is a
+deliberate sentinel: `just test` skips while it exists and fails loudly once it is removed.
+`CONTRIBUTING.md` holds the rest: contributing, workflows, branch naming, commits, and PRs.

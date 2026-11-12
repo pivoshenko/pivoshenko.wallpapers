@@ -8,13 +8,18 @@
 
 ## Overview
 
-A curated collection of wallpapers with search, tag filtering, metadata, and direct downloads.
+A curated collection of wallpapers, stored as image files in `wallpapers/`.
+
+The gallery at [wallpapers.pivoshenko.dev](https://wallpapers.pivoshenko.dev) is built from this
+repository. Its source lives in the private `pivoshenko.sites` monorepo under `sites/wallpapers`.
+Pushing a change to `wallpapers/` on `main` rebuilds it through the Deploy workflow. Download links
+point at the raw GitHub URLs of `wallpapers/<file>` in this repository.
 
 ## Attribution
 
 The MIT license in this repository covers the source code only.
 
-The wallpapers in `site/public/wallpapers/` are not my work. They were collected
+The wallpapers in `wallpapers/` are not my work. They were collected
 from various sources, remain the property of their respective creators, and are
 included here for personal use. Known sources: the `concept` pieces are by
 Piotr Krynski (https://www.artstation.com/krynski); the `rog` pieces are Asus
