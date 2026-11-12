@@ -1,5 +1,6 @@
 'use client'
 
+import type { Wallpaper } from '@/lib/wallpapers'
 import { FilterX, ImageOff } from 'lucide-react'
 import Image from 'next/image'
 import {
@@ -13,34 +14,11 @@ import {
   TagFilter,
   Tags,
 } from 'pivoshenko.ui'
-import { useEffect, useMemo, useState } from 'react'
-
-type FileRecord = {
-  filename: string
-  path: string
-  size: string
-  width: number
-  height: number
-}
-
-type Wallpaper = FileRecord & {
-  name: string
-  tags: string[]
-}
+import { useMemo, useState } from 'react'
 
 const owner = 'pivoshenko'
 const repository = 'pivoshenko.wallpapers'
 const repositoryPath = 'site/public/wallpapers'
-
-function parseFilename(filename: string) {
-  const [namePart = '', ...tagsArray] = filename.split('.')[0].split('_')
-  const tags = tagsArray.filter(Boolean)
-  const name = namePart
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase())
-
-  return { name, tags }
-}
 
 function toRawDownloadUrl(filePath: string) {
   return `https://raw.githubusercontent.com/${owner}/${repository}/main/${repositoryPath}/${filePath}`
@@ -56,48 +34,10 @@ function toIndexChip(name: string) {
 // carrying the tag would light at once, which reads as noise rather than state
 const noSelection = new Set<string>()
 
-function LoadingGrid() {
-  return (
-    <CardGrid>
-      {Array.from({ length: 12 }, (_, item) => item).map((item) => (
-        <div
-          key={`loading-${item}`}
-          className="surface-card aspect-[16/10] animate-pulse bg-bg-raised"
-        />
-      ))}
-    </CardGrid>
-  )
-}
-
-export function WallpaperBrowser() {
-  const [wallpapers, setWallpapers] = useState<Wallpaper[]>([])
+export function WallpaperBrowser({ wallpapers }: { wallpapers: Wallpaper[] }) {
   const [query, setQuery] = useState('')
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set())
   const [active, setActive] = useState<Wallpaper | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    async function load() {
-      try {
-        const response = await fetch('/files.json')
-        const files: FileRecord[] = await response.json()
-        setWallpapers(
-          files.map((file) => {
-            const parsed = parseFilename(file.filename)
-            return {
-              ...file,
-              name: parsed.name,
-              tags: parsed.tags,
-            }
-          }),
-        )
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    load()
-  }, [])
 
   const tags = useMemo(() => {
     const counts = new Map<string, number>()
@@ -168,9 +108,7 @@ export function WallpaperBrowser() {
         </div>
       </section>
 
-      {isLoading && <LoadingGrid />}
-
-      {!isLoading && filtered.length === 0 && (
+      {filtered.length === 0 && (
         <EmptyState
           icon={<ImageOff size={20} strokeWidth={2} aria-hidden="true" />}
           title="No wallpapers match"
@@ -186,7 +124,7 @@ export function WallpaperBrowser() {
         />
       )}
 
-      {!isLoading && filtered.length > 0 && (
+      {filtered.length > 0 && (
         <CardGrid>
           {filtered.map((wallpaper) => {
             const index = toIndexChip(wallpaper.name)
@@ -245,14 +183,22 @@ export function WallpaperBrowser() {
       )}
 
       {active && (
-        <Dialog open onClose={() => setActive(null)} title={active.filename}>
+        // wider than the default dialog, and capped by the viewport height too:
+        // the 16/10 frame plus about 17rem of header, details, footer and the
+        // dialog's own margin has to fit without scrolling. The 3rem gives back
+        // the padding the frame sits inside
+        <Dialog
+          open
+          onClose={() => setActive(null)}
+          title={active.filename}
+          className="!w-[min(72rem,calc(100vw-2rem),calc((100dvh-17rem)*1.6+3rem))]"
+        >
           <div className="relative aspect-[16/10] w-full overflow-hidden rounded border border-faint">
             <Image
               src={`/wallpapers/${active.path}`}
               alt={`${active.filename} preview`}
               fill
-              // the dialog caps at w-[min(46rem,100vw-2rem)]
-              sizes="(max-width: 48rem) 100vw, 736px"
+              sizes="(max-width: 74rem) 100vw, 1104px"
               className="object-cover"
             />
           </div>

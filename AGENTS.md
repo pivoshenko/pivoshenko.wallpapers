@@ -20,8 +20,6 @@ and all application code lives in `site/`.
   repository, the default branch, or the wallpapers directory silently breaks every "Download
   original" link, with no error anywhere: the links just 404. Verify a generated URL by hand
   after any such rename
-- **`site/public/files.json` is a generated file that happens to be tracked.** Editing it by hand
-  is always wrong - the next `dev` or `build` overwrites the change
 - **The images are not ours.** The MIT license covers the source code only; `README.md` holds the
   known sources and the takedown policy. Do not present them as original work, strip that section
   from `README.md`, or add an image without recording where it came from
@@ -34,17 +32,17 @@ There is no database, CMS, or API. The wallpaper collection is a directory of im
 their filenames carry the metadata.
 
 1. Image files live in `site/public/wallpapers/`
-2. `site/generateFileList.js` walks that directory at build time, reads each file's byte size and
-   pixel dimensions (via `image-size`), and writes `site/public/files.json`
-3. `WallpaperBrowser` fetches `/files.json` in the browser at runtime and derives everything else
+2. `getWallpapers` in `site/lib/wallpapers.ts` reads that directory when `app/page.tsx` renders at
+   build time, taking each file's byte size from `statSync` and its pixel dimensions from the image
+   header (via `image-size`, a devDependency that Vercel installs for `next build`)
+3. `app/page.tsx` passes the result to `WallpaperBrowser` as a prop, and it derives everything else
 
-To add or remove a wallpaper, change the files in `site/public/wallpapers/` and then run
-`just build` (or `cd site && pnpm generate:wallpapers`) so the regenerated `files.json` is committed
-alongside them.
+To add or remove a wallpaper, change the files in `site/public/wallpapers/`; the next dev reload or
+build picks them up, with no generated file to commit.
 
 ### Filenames encode tags
 
-`parseFilename` in `site/components/wallpaper-browser.tsx` splits a filename as
+`parseFilename` in `site/lib/wallpapers.ts` splits a filename as
 `<name>_<tag>[_<tag>...].<ext>`: everything before the extension is split on `_`, the first
 segment becomes the display name (hyphens to spaces, title-cased), and every remaining segment
 becomes a tag verbatim - a hyphen inside a tag segment stays in the tag. The existing collection
@@ -85,11 +83,9 @@ with the grid's `minmax(280px, 1fr)` columns and the dialog's `46rem` cap, or th
 the wrong candidate. `WallpaperBrowser` is the only client component (`'use client'`); the
 `app/` files around it are server components rendering the shell.
 
-The decorative field behind the hero and footer bands is `chunks`, a carved mosaic of slabs that
-holds its subdivision still and re-lights a few of them on a slow cycle. It is named twice on
-purpose - `field` on `SiteLayout` in `app/layout.tsx` paints the footer band, and `field` on
-`HeroBand` in `app/page.tsx` paints the hero, because `Hero` defaults to `contours` rather than
-inheriting the site's choice.
+The decorative field behind the nav and footer bands is `lake`, the topographic contours tilted
+back into perspective. It is set once - `field` on
+`SiteLayout` in `app/layout.tsx` - and the hero carries none.
 
 ## Commands and conventions
 

@@ -1,24 +1,24 @@
 import { WallpaperBrowser } from '@/components/wallpaper-browser'
+import { getWallpapers } from '@/lib/wallpapers'
 import { HeroBand, PageBody } from 'pivoshenko.ui'
 
-export default function Home() {
+export default async function Home() {
+  const wallpapers = await getWallpapers()
+
   return (
     <>
       <HeroBand
-        field="chunks"
-        tintAlt="lavender"
         title={
           <>
-            <span className="fg-title">pivoshenko</span>
-            <span className="fg-muted">.</span>
-            <span className="text-accent">wallpapers</span>
+            <span className="fg-title">Wallpapers </span>
+            <span className="text-accent">Hub</span>
           </>
         }
         lead="Curated collection of wallpapers focused on minimalism and aesthetic consistency."
       />
 
       <PageBody>
-        <WallpaperBrowser />
+        <WallpaperBrowser wallpapers={wallpapers} />
       </PageBody>
     </>
   )

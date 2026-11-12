@@ -7,10 +7,9 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "pnpm generate:wallpapers && next dev --turbopack",
-    "build": "pnpm generate:wallpapers && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
-    "generate:wallpapers": "node generateFileList.js",
     "lint": "biome check .",
     "format": "biome check --write .",
     "typecheck": "tsc --noEmit"

@@ -69,10 +69,10 @@ This project uses [`just`](https://github.com/casey/just) as its task runner. Ru
 | `just format` | Formats the site with Biome |
 | `just lint` | Lints the site with Biome and typechecks it |
 | `just test` | Skips while the `.no-tests` sentinel is present; without it the recipe fails, prompting you to add tests |
-| `just build` | Regenerates the wallpaper file list, then builds the site for production |
+| `just build` | Builds the site for production |
 | `just check` | Runs `lint`, `test`, and `build` in sequence |
 | `just update` | Upgrades site dependencies with pnpm |
-| `just run-dev-server` | Regenerates the wallpaper file list, then runs the site locally in dev mode |
+| `just run-dev-server` | Runs the site locally in dev mode |
 | `just run-prod-server` | Builds the site, then serves the production build |
 
 1. Fork the repository and clone your fork locally

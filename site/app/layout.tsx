@@ -6,16 +6,13 @@ import {
 } from 'pivoshenko.ui/next/site-layout'
 import './globals.css'
 
-export const metadata = {
-  ...siteMetadata({
-    url: 'https://wallpapers.pivoshenko.dev',
-    brand: 'pivoshenko.wallpapers',
-    title: 'Wallpapers - pivoshenko.dev',
-    titleTemplate: '%s - Wallpapers',
-    description: 'Curated collection of wallpapers',
-    ogTitle: 'Wallpapers',
-  }),
-}
+export const metadata = siteMetadata({
+  url: 'https://wallpapers.pivoshenko.dev',
+  brand: 'pivoshenko.wallpapers',
+  title: 'Wallpapers - pivoshenko.dev',
+  titleTemplate: '%s - Wallpapers',
+  description: 'Curated collection of wallpapers',
+})
 
 export const viewport = siteViewport
 
@@ -29,8 +26,7 @@ export default function RootLayout({
       brand="pivoshenko.wallpapers"
       accent="mauve"
       subAccent="pink"
-      field="chunks"
-      fieldTintAlt="lavender"
+      field="lake"
       afterShell={<SpeedInsights />}
     >
       {children}
