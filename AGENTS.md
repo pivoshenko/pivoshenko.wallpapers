@@ -5,17 +5,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Overview
 
 `pivoshenko.wallpapers` is an images-only repository: the curated wallpaper collection in
-`wallpapers/`, plus project docs and one deploy workflow. The gallery site that renders it,
-`wallpapers.pivoshenko.dev`, lives in the private `pivoshenko.sites` monorepo under
-`sites/wallpapers`. At build time that site reads this repository (locally by copying the sibling
-checkout, on Vercel by shallow-cloning this public repo) and copies the images out of it.
+`wallpapers/`, plus project docs. `wallpapers.pivoshenko.dev` shows the collection.
 
 ## Expensive to Get Wrong
 
 - **Download links are raw GitHub URLs.** The site links to `wallpapers/<file>` on the `main`
   branch of this repository via `raw.githubusercontent.com`. Renaming the repository, the default
-  branch, the `wallpapers/` directory, or any file silently breaks those links and the site's
-  build-time read - fix `pivoshenko.sites` in the same change
+  branch, the `wallpapers/` directory, or any file silently breaks those links and the gallery
 - **The images are not ours.** The MIT license covers the source code only; `README.md` holds the
   known sources and the takedown policy. Do not present them as original work, strip that section
   from `README.md`, or add an image without recording where it came from
@@ -32,12 +28,6 @@ so renaming a file changes both its display name and its facets.
 
 To add a wallpaper, put the file in `wallpapers/` following that convention and push to `main`. To
 remove one, delete it the same way.
-
-## Deploy
-
-`.github/workflows/deploy.yaml` runs on pushes to `main` that touch `wallpapers/**` (and on manual
-dispatch). It POSTs to the Vercel deploy hook stored in the repo secret `VERCEL_DEPLOY_HOOK`, which
-rebuilds `wallpapers.pivoshenko.dev`. The Vercel project is not connected to this repository.
 
 ## Commands and Conventions
 

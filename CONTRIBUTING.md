@@ -59,7 +59,7 @@ Concrete examples, API sketches, UI mockups, or references are helpful when rele
 
 ### Local Development
 
-This repository holds only the wallpaper images in `wallpapers/`, plus docs and a deploy workflow. There is no app to build or run. The gallery site lives in the private `pivoshenko.sites` monorepo under `sites/wallpapers`.
+This repository holds only the wallpaper images in `wallpapers/`, plus docs and a deploy workflow. There is no app to build or run.
 
 To add a wallpaper:
 
@@ -76,7 +76,7 @@ Workflows live in `.github/workflows`:
 
 | Workflow | Trigger | What it does |
 | --- | --- | --- |
-| Deploy | Push to `main` touching `wallpapers/**`, `workflow_dispatch` | Single `deploy` job on `ubuntu-24.04-arm` that POSTs to the Vercel deploy hook in the `VERCEL_DEPLOY_HOOK` secret, rebuilding wallpapers.pivoshenko.dev |
+| Deploy | Push to `main` touching `wallpapers/**`, `workflow_dispatch` | Rebuilds wallpapers.pivoshenko.dev |
 
 ### Branches
 
